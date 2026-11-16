@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAPP - Tabasamu APP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f0f2f5}
+header{background:#1877f2;color:#fff;padding:15px;text-align:center;position:sticky;top:0;z-index:10}
+header h1{font-size:24px} header p{font-size:13px;opacity:.9}
+.container{max-width:500px;margin:auto;padding:12px}
+.card{background:#fff;border-radius:12px;padding:15px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+input,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;font-size:15px}
+button{background:#1877f2;color:#fff;border:none;padding:11px 18px;border-radius:8px;font-weight:bold;cursor:pointer;width:100%;font-size:15px}
+button.green{background:#42b72a} button.gray{background:#e4e6eb;color:#000}
+.post{border-top:1px solid #eee;padding-top:12px;margin-top:12px}
+.post b{color:#1877f2} .post p{margin:8px 0;font-size:15px}
+.actions{display:flex;gap:8px} .actions button{padding:8px}
+.hidden{display:none} .avatar{width:40px;height:40px;background:#ff9800;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px}
+.top{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+</style>
+</head>
+<body>
+<header><h1>😊 TAPP - Tabasamu APP</h1><p>App ya Kijamii - Kila Mtu Karibu!</p></header>
+<div class="container">
+<div id="authCard" class="card">
+<h2 style="text-align:center;margin-bottom:10px">Karibu TAPP! 👋</h2>
+<input id="regName" placeholder="Jina lako kamili...">
+<input id="regUser" placeholder="Username mf: @juma...">
+<input id="regPass" type="password" placeholder="Password...">
+<button onclick="register()">Jisajili / Ingia</button>
+<p style="text-align:center;font-size:12px;color:#777;margin-top:10px">Jisajili, Post, Like, Tabasamu na Marafiki!</p>
+</div>
+
+<div id="appCard" class="card hidden">
+<div class="top"><div class="avatar" id="myAvatar">T</div><div><b id="myName">Mtumiaji</b><br><small id="myUser">@user</small></div></div>
+<textarea id="postText" rows="3" placeholder="Unafikiria nini leo? Tabasamu... 😊"></textarea>
+<button onclick="addPost()">Post Sasa 🚀</button>
+<button class="gray" style="margin-top:8px" onclick="logout()">Toka</button>
+</div>
+
+<div class="card"><h3>📢 Posts za Marafiki</h3><div id="feed"></div></div>
+</div>
+<script>
+let user = JSON.parse(localStorage.getItem('tapp_user')||'null');
+let posts = JSON.parse(localStorage.getItem('tapp_posts')||'[]');
+if(posts.length==0){posts=[
+{name:'Tabasamu Team',user:'@tapp',text:'Karibu TAPP! 😊 Hapa kila mtu anajisajili, anapost na kutabasamu pamoja. Post kitu chako cha kwanza!',likes:128},
+{name:'Juma M',user:'@juma',text:'Leo ni siku nzuri sana! Tabasamu tu 😊❤️',likes:45},
+{name:'Neema K',user:'@neema',text:'TAPP ni app kali! Nimejisajili leo, karibuni wote!',likes:32}
+];savePosts();}
+function savePosts(){localStorage.setItem('tapp_posts',JSON.stringify(posts))}
+function showApp(){
+if(user){document.getElementById('authCard').classList.add('hidden');document.getElementById('appCard').classList.remove('hidden');document.getElementById('myName').innerText=user.name;document.getElementById('myUser').innerText=user.username;document.getElementById('myAvatar').innerText=user.name.charAt(0).toUpperCase();}
+else{document.getElementById('authCard').classList.remove('hidden');document.getElementById('appCard').classList.add('hidden');}
+render();
+}
+function register(){
+let n=document.getElementById('regName').value.trim();
+let u=document.getElementById('regUser').value.trim();
+let p=document.getElementById('regPass').value.trim();
+if(!n||!u){alert('Tafadhali jaza Jina na Username!');return;}
+if(!u.startsWith('@')) u='@'+u;
+user={name:n,username:u};localStorage.setItem('tapp_user',JSON.stringify(user));alert('Karibu '+n+'! 😊 Umesajiliwa TAPP!');showApp();
+}
+function logout(){localStorage.removeItem('tapp_user');user=null;showApp();}
+function addPost(){
+let t=document.getElementById('postText').value.trim();
+if(!t){alert('Andika kitu kwanza!');return;}
+posts.unshift({name:user.name,user:user.username,text:t,likes:0});savePosts();document.getElementById('postText').value='';render();
+}
+function like(i){posts[i].likes++;savePosts();render();}
+function render(){
+let h='';
+posts.forEach((p,i)=>{h+=`<div class="post"><div class="top"><div class="avatar">${p.name.charAt(0)}</div><div><b>${p.name}</b><br><small>${p.user}</small></div></div><p>${p.text}</p><div class="actions"><button onclick="like(${i})">❤️ Like (${p.likes})</button><button class="gray" onclick="alert('Asante kwa kutabasamu! 😊')">😊 Tabasamu</button></div></div>`});
+document.getElementById('feed').innerHTML=h;
+}
+showApp();
+</script>
+</body>
+</html>
