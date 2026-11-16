@@ -3,80 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TAPP - Tabasamu APP</title>
+<title>TAP - Said KAPWILE</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f0f2f5}
-header{background:#1877f2;color:#fff;padding:15px;text-align:center;position:sticky;top:0;z-index:10}
-header h1{font-size:24px} header p{font-size:13px;opacity:.9}
-.container{max-width:500px;margin:auto;padding:12px}
-.card{background:#fff;border-radius:12px;padding:15px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
-input,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;font-size:15px}
-button{background:#1877f2;color:#fff;border:none;padding:11px 18px;border-radius:8px;font-weight:bold;cursor:pointer;width:100%;font-size:15px}
-button.green{background:#42b72a} button.gray{background:#e4e6eb;color:#000}
-.post{border-top:1px solid #eee;padding-top:12px;margin-top:12px}
-.post b{color:#1877f2} .post p{margin:8px 0;font-size:15px}
-.actions{display:flex;gap:8px} .actions button{padding:8px}
-.hidden{display:none} .avatar{width:40px;height:40px;background:#ff9800;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px}
-.top{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0f0f0f;color:#fff;padding-bottom:85px}
+header{position:sticky;top:0;z-index:100;background:#000;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffcc00}
+.logo{font-size:22px;font-weight:900;color:#ffcc00}.logo span{color:#fff}
+.top{display:flex;gap:6px;align-items:center}
+.btn{background:#ffcc00;color:#000;border:none;padding:7px 12px;border-radius:20px;font-weight:800;cursor:pointer;font-size:13px}
+.btn-o{background:transparent;color:#fff;border:1.5px solid #ffcc00}
+.notif{position:relative;font-size:22px;cursor:pointer}
+.notif b{position:absolute;top:-8px;right:-8px;background:#ff3366;font-size:11px;padding:1px 6px;border-radius:10px}
+.search{padding:10px 12px;background:#1a1a1a;position:sticky;top:52px;z-index:99}
+.search input{width:100%;padding:11px 14px;border-radius:25px;border:none;background:#2a2a2a;color:#fff;outline:none}
+.welcome{background:linear-gradient(135deg,#ffcc00,#ff6600);color:#000;margin:12px;border-radius:15px;padding:16px;text-align:center}
+.cat-row{display:flex;gap:8px;overflow-x:auto;padding:0 12px 10px}
+.cat{background:#2a2a2a;padding:8px 14px;border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer}
+.cat.active{background:#ffcc00;color:#000;font-weight:800}
+.card{background:#1a1a1a;margin:12px;border-radius:15px;overflow:hidden;border:1px solid #2a2a2a}
+.head{display:flex;align-items:center;gap:10px;padding:11px;cursor:pointer}
+.avatar{width:45px;height:45px;border-radius:50%;background:#ffcc00;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;overflow:hidden;flex-shrink:0}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.card img,.card video{width:100%;max-height:450px;object-fit:cover;background:#000}
+.body{padding:11px}
+.price{color:#ffcc00;font-weight:900;font-size:17px}
+.actions{display:flex;justify-content:space-between;padding:10px;border-top:1px solid #2a2a2a}
+.actions button{background:none;border:none;color:#fff;font-size:14px;cursor:pointer}
+.actions button.liked{color:#ff3366}
+.call{display:block;background:#25D366;color:#fff;text-align:center;padding:11px;margin:10px;border-radius:10px;text-decoration:none;font-weight:800}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;justify-content:center;align-items:center;padding:12px;overflow-y:auto}
+.modal.show{display:flex}
+.box{background:#1a1a1a;width:100%;max-width:420px;border-radius:18px;padding:20px;border:2px solid #ffcc00;max-height:92vh;overflow-y:auto}
+.box h2{text-align:center;color:#ffcc00;margin-bottom:5px}.box p{text-align:center;color:#aaa;font-size:13px;margin-bottom:12px}
+.box input,.box select,.box textarea{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:1px solid #333;background:#2a2a2a;color:#fff;outline:none}
+.box button{width:100%;padding:12px;background:#ffcc00;border:none;border-radius:10px;font-weight:900;margin-top:8px;cursor:pointer}
+.link{text-align:center;margin-top:10px;color:#ffcc00;cursor:pointer;font-size:14px}
+.close{float:right;cursor:pointer;font-size:22px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#000;display:flex;justify-content:space-around;padding:10px 0;border-top:2px solid #ffcc00;z-index:100}
+.nav div{text-align:center;font-size:12px;cursor:pointer;color:#aaa}.nav div.active{color:#ffcc00;font-weight:800}
+.fab{position:fixed;bottom:78px;right:14px;width:58px;height:58px;background:#ffcc00;color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;cursor:pointer;z-index:90;box-shadow:0 4px 15px rgba(255,204,0,.5)}
+.profile-top{text-align:center;padding:20px 12px}
+.profile-top .avatar{width:95px;height:95px;font-size:36px;margin:0 auto 10px}
+.empty{text-align:center;padding:35px 15px;color:#aaa}
+.notif-item{background:#2a2a2a;padding:12px;border-radius:10px;margin:8px 0;text-align:left;font-size:14px}
 </style>
 </head>
 <body>
-<header><h1>😊 TAPP - Tabasamu APP</h1><p>App ya Kijamii - Kila Mtu Karibu!</p></header>
-<div class="container">
-<div id="authCard" class="card">
-<h2 style="text-align:center;margin-bottom:10px">Karibu TAPP! 👋</h2>
-<input id="regName" placeholder="Jina lako kamili...">
-<input id="regUser" placeholder="Username mf: @juma...">
-<input id="regPass" type="password" placeholder="Password...">
-<button onclick="register()">Jisajili / Ingia</button>
-<p style="text-align:center;font-size:12px;color:#777;margin-top:10px">Jisajili, Post, Like, Tabasamu na Marafiki!</p>
+<header>
+<div class="logo">TAP<span> 🔥</span></div>
+<div class="top" id="topBtns"></div>
+<div class="notif" onclick="openNotif()">🔔<b id="notifCount">0</b></div>
+</header>
+<div class="search"><input id="searchInput" placeholder="🔍 Tafuta jina, bidhaa, bei..." oninput="render()"></div>
+<div class="welcome" id="welcomeBox">
+<h2>🇹🇿 TAP IMEFIKA!</h2>
+<p><b>Said KAPWILE</b> • Post Video • Weka Bei • Pata Pesa!</p>
+<p>Kujiunga ni BURE! • WhatsApp: 0688472790</p>
 </div>
-
-<div id="appCard" class="card hidden">
-<div class="top"><div class="avatar" id="myAvatar">T</div><div><b id="myName">Mtumiaji</b><br><small id="myUser">@user</small></div></div>
-<textarea id="postText" rows="3" placeholder="Unafikiria nini leo? Tabasamu... 😊"></textarea>
-<button onclick="addPost()">Post Sasa 🚀</button>
-<button class="gray" style="margin-top:8px" onclick="logout()">Toka</button>
+<div class="cat-row">
+<div class="cat active" onclick="setCat('Zote',this)">Zote 🔥</div>
+<div class="cat" onclick="setCat('Biashara',this)">Biashara 🛍️</div>
+<div class="cat" onclick="setCat('Muziki',this)">Muziki 🎵</div>
+<div class="cat" onclick="setCat('Vipaji',this)">Vipaji ⭐</div>
+<div class="cat" onclick="setCat('Huduma',this)">Huduma 💼</div>
+<div class="cat" onclick="setCat('Reels',this)">Reels 🎬</div>
 </div>
-
-<div class="card"><h3>📢 Posts za Marafiki</h3><div id="feed"></div></div>
+<div id="feed"></div>
+<div class="fab" onclick="openPost()">+</div>
+<div class="nav">
+<div class="active" onclick="goHome(this)">🏠<br>Home</div>
+<div onclick="goReels(this)">🎬<br>Reels</div>
+<div onclick="openPost()">➕<br>Post</div>
+<div onclick="openProfile()">👤<br>Profile</div>
+<div onclick="logoutBtn()">🚪<br>Toka</div>
 </div>
+<div class="modal" id="loginModal"><div class="box">
+<span class="close" onclick="closeM('loginModal')">×</span>
+<h2>KARIBU TAP</h2><p>Ingia u-post na u-like</p>
+<input id="loginPhone" placeholder="Namba ya Simu 0688472790">
+<input type="password" id="loginPass" placeholder="Password">
+<button onclick="doLogin()">INGIA 🔓</button>
+<div class="link" onclick="switchM('loginModal','regModal')">Huna akaunti? JIUNGE BURE →</div>
+<div class="link" onclick="closeM('loginModal')">Angalia bila kujiunga 👁️</div>
+</div></div>
+<div class="modal" id="regModal"><div class="box">
+<span class="close" onclick="closeM('regModal')">×</span>
+<h2>JIUNGE TAP BURE!</h2><p>Tengeneza akaunti yako</p>
+<input id="regName" placeholder="Jina Kamili - mf Said Kapwile">
+<input id="regPhone" placeholder="Namba ya Simu">
+<input type="password" id="regPass" placeholder="Weka Password">
+<select id="regType"><option>Biashara</option><option>Msanii</option><option>Mwenye Kipaji</option><option>Mteja</option></select>
+<button onclick="doRegister()">JIUNGE SASA 🚀</button>
+<div class="link" onclick="switchM('regModal','loginModal')">Umeshajiunga? INGIA</div>
+</div></div>
+<div class="modal" id="postModal"><div class="box">
+<span class="close" onclick="closeM('postModal')">×</span>
+<h2>WEKA POST / REEL 💰</h2><p>Post video au picha upate pesa!</p>
+<input id="postTitle" placeholder="Jina la bidhaa / wimbo">
+<input type="number" id="postPrice" placeholder="Bei TZS mf 25000">
+<select id="postCat"><option>Biashara</option><option>Muziki</option><option>Vipaji</option><option>Huduma</option><option>Reels</option></select>
+<textarea id="postDesc" placeholder="Maelezo mafupi..."></textarea>
+<label style="font-size:13px;color:#aaa">Chagua Picha / Video</label>
+<input type="file" id="postFile" accept="video/*,image/*">
+<button onclick="savePost()">POST SASA 🔥</button>
+</div></div>
+<div class="modal" id="profileModal"><div class="box">
+<span class="close" onclick="closeM('profileModal')">×</span>
+<div id="profileBox"></div>
+</div></div>
+<div class="modal" id="notifModal"><div class="box">
+<span class="close" onclick="closeM('notifModal')">×</span>
+<h2>🔔 Notifications</h2>
+<div id="notifBox"></div>
+<button onclick="closeM('notifModal')">Funga</button>
+</div></div>
 <script>
-let user = JSON.parse(localStorage.getItem('tapp_user')||'null');
-let posts = JSON.parse(localStorage.getItem('tapp_posts')||'[]');
-if(posts.length==0){posts=[
-{name:'Tabasamu Team',user:'@tapp',text:'Karibu TAPP! 😊 Hapa kila mtu anajisajili, anapost na kutabasamu pamoja. Post kitu chako cha kwanza!',likes:128},
-{name:'Juma M',user:'@juma',text:'Leo ni siku nzuri sana! Tabasamu tu 😊❤️',likes:45},
-{name:'Neema K',user:'@neema',text:'TAPP ni app kali! Nimejisajili leo, karibuni wote!',likes:32}
-];savePosts();}
-function savePosts(){localStorage.setItem('tapp_posts',JSON.stringify(posts))}
-function showApp(){
-if(user){document.getElementById('authCard').classList.add('hidden');document.getElementById('appCard').classList.remove('hidden');document.getElementById('myName').innerText=user.name;document.getElementById('myUser').innerText=user.username;document.getElementById('myAvatar').innerText=user.name.charAt(0).toUpperCase();}
-else{document.getElementById('authCard').classList.remove('hidden');document.getElementById('appCard').classList.add('hidden');}
-render();
+let posts = JSON.parse(localStorage.getItem('tap_posts') || '[]');
+let users = JSON.parse(localStorage.getItem('tap_users') || '[]');
+let notifs = JSON.parse(localStorage.getItem('tap_notifs') || '[]');
+let currentUser = JSON.parse(localStorage.getItem('tap_current') || 'null');
+let cat='Zote', showMine=false, showReelsOnly=false;
+if(users.length===0){
+users=[
+{name:'Said KAPWILE',phone:'0688472790',pass:'1234',type:'Bosi - Mmiliki',pic:'',bio:'Mmiliki wa TAP 🔥 | KAPWILE TV | Dar es Salaam | WhatsApp 0688472790'},
+{name:'TAP Official',phone:'0688472790',pass:'tap123',type:'Official',pic:'',bio:'Akaunti rasmi ya TAP 🇹🇿'},
+{name:'Mama Ntilie',phone:'0688000000',pass:'1234',type:'Biashara',pic:'',bio:'Mafuta ya nywele asili'},
+{name:'Msanii Kapa',phone:'0755000000',pass:'1234',type:'Msanii',pic:'',bio:'Msanii - Wimbo mpya!'}
+];
+localStorage.setItem('tap_users',JSON.stringify(users));
 }
-function register(){
-let n=document.getElementById('regName').value.trim();
-let u=document.getElementById('regUser').value.trim();
-let p=document.getElementById('regPass').value.trim();
-if(!n||!u){alert('Tafadhali jaza Jina na Username!');return;}
-if(!u.startsWith('@')) u='@'+u;
-user={name:n,username:u};localStorage.setItem('tapp_user',JSON.stringify(user));alert('Karibu '+n+'! 😊 Umesajiliwa TAPP!');showApp();
+// BADILISHA Namba ya zamani kuwa ya kweli kama mtu alisha-save
+users.forEach(u=>{ if(u.name==='Said KAPWILE') u.phone='0688472790'; });
+posts.forEach(p=>{ if(p.name==='Said KAPWILE') p.phone='0688472790'; });
+localStorage.setItem('tap_users',JSON.stringify(users));
+localStorage.setItem('tap_posts',JSON.stringify(posts));
+if(posts.length===0){
+posts=[
+{id:1,name:'Said KAPWILE',phone:'0688472790',title:'Karibu TAP! App Yetu Imefika 🔥',price:0,cat:'Biashara',desc:'Mimi ni Said KAPWILE, mmiliki wa TAP. Karibu sana! WhatsApp 0688472790',likes:45,img:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700',isVideo:false},
+{id:2,name:'TAP Official',phone:'0688472790',title:'Viatu Vya Kisasa - Original',price:25000,cat:'Biashara',desc:'Viatu vizuri, delivery Dar es Salaam!',likes:28,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700',isVideo:false},
+{id:3,name:'Msanii Kapa',phone:'0755000000',title:'Wimbo Mpya - Njoo Uskilize 🎵',price:0,cat:'Muziki',desc:'Wimbo mpya umetoka!',likes:32,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=700',isVideo:false}
+];
+localStorage.setItem('tap_posts',JSON.stringify(posts));
 }
-function logout(){localStorage.removeItem('tapp_user');user=null;showApp();}
-function addPost(){
-let t=document.getElementById('postText').value.trim();
-if(!t){alert('Andika kitu kwanza!');return;}
-posts.unshift({name:user.name,user:user.username,text:t,likes:0});savePosts();document.getElementById('postText').value='';render();
-}
-function like(i){posts[i].likes++;savePosts();render();}
-function render(){
-let h='';
-posts.forEach((p,i)=>{h+=`<div class="post"><div class="top"><div class="avatar">${p.name.charAt(0)}</div><div><b>${p.name}</b><br><small>${p.user}</small></div></div><p>${p.text}</p><div class="actions"><button onclick="like(${i})">❤️ Like (${p.likes})</button><button class="gray" onclick="alert('Asante kwa kutabasamu! 😊')">😊 Tabasamu</button></div></div>`});
-document.getElementById('feed').innerHTML=h;
-}
-showApp();
-</script>
-</body>
-</html>
+function saveAll(){localStorage.setItem('tap_posts',JSON.stringify(posts));localStorage.setItem('tap_users',JSON.stringify(users));localStorage.setItem('tap_notifs',JSON.stringify(notifs));}
+function addNotif(msg){notifs.unshift({msg,time:new Date().toLocaleTimeString()
