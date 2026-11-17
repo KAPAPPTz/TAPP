@@ -1,60 +1,159 @@
-msg){notifs.unshift({msg,time:new Date().toLocaleTimeString()
 <!DOCTYPE html>
-<html lang="sw"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>TAP - Said KAPWILE</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#0f0f0f;color:#fff;padding-bottom:85px}header{position:sticky;top:0;z-index:100;background:#000;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffcc00}.logo{font-size:22px;font-weight:900;color:#ffcc00}.btn{background:#ffcc00;color:#000;border:none;padding:7px 12px;border-radius:20px;font-weight:800;cursor:pointer;font-size:13px}.btn-o{background:transparent;color:#fff;border:1.5px solid #ffcc00}.notif{position:relative;font-size:22px;cursor:pointer}.notif b{position:absolute;top:-8px;right:-8px;background:#ff3366;font-size:11px;padding:1px 6px;border-radius:10px}.search{padding:10px 12px;background:#1a1a1a}.search input{width:100%;padding:11px;border-radius:25px;border:none;background:#2a2a2a;color:#fff;outline:none}.welcome{background:linear-gradient(135deg,#ffcc00,#ff6600);color:#000;margin:12px;border-radius:15px;padding:16px;text-align:center}.cat-row{display:flex;gap:8px;overflow-x:auto;padding:0 12px 10px}.cat{background:#2a2a2a;padding:8px 14px;border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer}.cat.active{background:#ffcc00;color:#000;font-weight:800}.card{background:#1a1a1a;margin:12px;border-radius:15px;overflow:hidden}.head{display:flex;align-items:center;gap:10px;padding:11px}.avatar{width:45px;height:45px;border-radius:50%;background:#ffcc00;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.card img,.card video{width:100%;max-height:450px;object-fit:cover;background:#000}.body{padding:11px}.price{color:#ffcc00;font-weight:900;font-size:17px}.actions{display:flex;justify-content:space-between;padding:10px;border-top:1px solid #2a2a2a}.actions button{background:none;border:none;color:#fff;font-size:14px;cursor:pointer}.call{display:block;background:#25D366;color:#fff;text-align:center;padding:11px;margin:10px;border-radius:10px;text-decoration:none;font-weight:800}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;justify-content:center;align-items:center;padding:12px}.modal.show{display:flex}.box{background:#1a1a1a;width:100%;max-width:420px;border-radius:18px;padding:20px;border:2px solid #ffcc00;max-height:92vh;overflow-y:auto}.box h2{text-align:center;color:#ffcc00}.box p{text-align:center;color:#aaa;font-size:13px;margin-bottom:12px}.box input,.box select,.box textarea{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:1px solid #333;background:#2a2a2a;color:#fff;outline:none}.box button{width:100%;padding:12px;background:#ffcc00;border:none;border-radius:10px;font-weight:900;margin-top:8px;cursor:pointer}.link{text-align:center;margin-top:10px;color:#ffcc00;cursor:pointer;font-size:14px}.close{float:right;cursor:pointer;font-size:22px}.nav{position:fixed;bottom:0;left:0;right:0;background:#000;display:flex;justify-content:space-around;padding:10px 0;border-top:2px solid #ffcc00}.nav div{text-align:center;font-size:12px;cursor:pointer;color:#aaa}.fab{position:fixed;bottom:78px;right:14px;width:58px;height:58px;background:#ffcc00;color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;cursor:pointer;z-index:90}.profile-top{text-align:center;padding:20px 12px}.profile-top .avatar{width:95px;height:95px;font-size:36px;margin:0 auto 10px}.empty{text-align:center;padding:35px;color:#aaa}.notif-item{background:#2a2a2a;padding:12px;border-radius:10px;margin:8px 0;text-align:left}</style></head>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAP - Tabasamu APP</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial;background:#f0f2f5}
+.top{background:#1877f2;color:white;padding:14px;text-align:center;font-size:24px;font-weight:bold;position:sticky;top:0;z-index:10}
+.top small{font-size:12px;display:block;font-weight:normal}
+.menu{display:flex;background:white;border-bottom:1px solid #ddd;position:sticky;top:58px;z-index:10}
+.menu div{flex:1;text-align:center;padding:12px;font-weight:bold;cursor:pointer}
+.menu div.active{color:#1877f2;border-bottom:3px solid #1877f2}
+.box,.post,.card{background:white;margin:10px;padding:14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0}
+button{background:#1877f2;color:white;border:0;padding:12px;border-radius:10px;font-weight:bold;width:100%;cursor:pointer;font-size:16px}
+button.green{background:#42b72a} button.grey{background:#e4e6eb;color:#111}
+.post img{width:100%;border-radius:10px;margin-top:8px}
+.actions{display:flex;justify-content:space-between;margin-top:10px;border-top:1px solid #eee;padding-top:10px}
+.actions span{cursor:pointer}
+.profile-pic{width:80px;height:80px;border-radius:50%;background:#1877f2;color:white;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;margin:auto}
+.hidden{display:none}
+.comment{background:#f0f2f5;padding:8px;border-radius:8px;margin:6px 0;font-size:14px}
+</style>
+</head>
 <body>
-<header><div class="logo">TAP 🔥</div><div id="topBtns"></div><div class="notif" onclick="openNotif()">🔔<b id="notifCount">0</b></div></header>
-<div class="search"><input id="searchInput" placeholder="🔍 Tafuta..." oninput="render()"></div>
-<div class="welcome" id="welcomeBox"><h2>🇹🇿 TAP IMEFIKA!</h2><p><b>Said KAPWILE</b> • WhatsApp: 0688472790</p></div>
-<div class="cat-row"><div class="cat active" onclick="setCat('Zote',this)">Zote 🔥</div><div class="cat" onclick="setCat('Biashara',this)">Biashara 🛍️</div><div class="cat" onclick="setCat('Muziki',this)">Muziki 🎵</div><div class="cat" onclick="setCat('Vipaji',this)">Vipaji ⭐</div><div class="cat" onclick="setCat('Huduma',this)">Huduma 💼</div><div class="cat" onclick="setCat('Reels',this)">Reels 🎬</div></div>
-<div id="feed"></div><div class="fab" onclick="openPost()">+</div>
-<div class="nav"><div onclick="goHome()">🏠<br>Home</div><div onclick="goReels()">🎬<br>Reels</div><div onclick="openPost()">➕<br>Post</div><div onclick="openProfile()">👤<br>Profile</div><div onclick="logoutBtn()">🚪<br>Toka</div></div>
+<div class="top">TAP<small>Tabasamu APP | Everyone is Welcome 😊</small></div>
 
-<div class="modal" id="loginModal"><div class="box"><span class="close" onclick="closeM('loginModal')">×</span><h2>KARIBU TAP</h2><p>Ingia u-post na u-like</p><input id="loginPhone" placeholder="Namba 0688472790"><input type="password" id="loginPass" placeholder="Password 1234"><button onclick="doLogin()">INGIA 🔓</button><button style="background:#000;color:#ffcc00;border:2px solid #ffcc00" onclick="loginBosi()">👑 INGIA KAMA BOSI SAID</button><button style="background:#ff3366;color:#fff" onclick="resetApp()">🗑️ FUTA DATA YA ZAMANI</button><div class="link" onclick="switchM('loginModal','regModal')">Huna akaunti? JIUNGE BURE →</div></div></div>
-<div class="modal" id="regModal"><div class="box"><span class="close" onclick="closeM('regModal')">×</span><h2>JIUNGE TAP BURE!</h2><input id="regName" placeholder="Jina Kamili"><input id="regPhone" placeholder="Namba ya Simu"><input type="password" id="regPass" placeholder="Password"><select id="regType"><option>Biashara</option><option>Msanii</option><option>Mwenye Kipaji</option><option>Mteja</option></select><button onclick="doRegister()">JIUNGE SASA 🚀</button><div class="link" onclick="switchM('regModal','loginModal')">Umeshajiunga? INGIA</div></div></div>
-<div class="modal" id="postModal"><div class="box"><span class="close" onclick="closeM('postModal')">×</span><h2>WEKA POST / REEL 💰</h2><input id="postTitle" placeholder="Jina la bidhaa"><input type="number" id="postPrice" placeholder="Bei TZS"><select id="postCat"><option>Biashara</option><option>Muziki</option><option>Vipaji</option><option>Huduma</option><option>Reels</option></select><textarea id="postDesc" placeholder="Maelezo..."></textarea><input type="file" id="postFile" accept="video/*,image/*"><button onclick="savePost()">POST SASA 🔥</button></div></div>
-<div class="modal" id="profileModal"><div class="box"><span class="close" onclick="closeM('profileModal')">×</span><div id="profileBox"></div></div></div>
-<div class="modal" id="notifModal"><div class="box"><span class="close" onclick="closeM('notifModal')">×</span><h2>🔔 Notifications</h2><div id="notifBox"></div><button onclick="closeM('notifModal')">Funga</button></div></div>
+<div class="menu" id="menu" style="display:none">
+<div id="mFeed" class="active" onclick="showPage('feed')">🏠 Feed</div>
+<div id="mPost" onclick="showPage('post')">➕ Post</div>
+<div id="mProfile" onclick="showPage('profile')">👤 Profile</div>
+</div>
 
-<script>
-let posts=JSON.parse(localStorage.getItem('tap_posts')||'[]');
-let users=JSON.parse(localStorage.getItem('tap_users')||'[]');
-let notifs=JSON.parse(localStorage.getItem('tap_notifs')||'[]');
-let currentUser=JSON.parse(localStorage.getItem('tap_current')||'null');
-let cat='Zote',showReelsOnly=false;
-function defaultData(){
-users=[{name:'Said KAPWILE',phone:'0688472790',pass:'1234',type:'Bosi - Mmiliki',pic:'',bio:'Mmiliki wa TAP 🔥 | KAPWILE TV | 0688472790'},{name:'TAP Official',phone:'0688472791',pass:'tap123',type:'Official',pic:'',bio:'Akaunti rasmi ya TAP 🇹🇿'},{name:'Mama Ntilie',phone:'0688000000',pass:'1234',type:'Biashara',pic:'',bio:'Mafuta ya nywele'}];
-posts=[{id:1,name:'Said KAPWILE',phone:'0688472790',title:'Karibu TAP! App Yetu Imefika 🔥',price:0,cat:'Biashara',desc:'Mimi ni Said KAPWILE, mmiliki wa TAP. WhatsApp 0688472790',likes:45,img:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700',isVideo:false},{id:2,name:'TAP Official',phone:'0688472791',title:'Viatu Vya Kisasa',price:25000,cat:'Biashara',desc:'Delivery Dar es Salaam!',likes:28,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700',isVideo:false}];
-notifs=[]; saveAll();
+<!-- LOGIN / REGISTER -->
+<div id="pageAuth">
+<div class="card">
+<h2 style="text-align:center">Karibu TAP 😊</h2>
+<p style="text-align:center;color:#666">Register, Post, Like & Smile Together</p>
+<input id="authName" placeholder="Jina lako...">
+<input id="authEmail" placeholder="Email...">
+<input id="authPass" type="password" placeholder="Password...">
+<button onclick="register()">Register Mpya</button>
+<button class="green" style="margin-top:8px" onclick="login()">Login - Nimeshajisajili</button>
+<p id="authMsg" style="text-align:center;color:red"></p>
+<p style="text-align:center;font-size:13px;color:#888">CEO: saidkapwile09@gmail.com</p>
+</div>
+</div>
+
+<!-- FEED -->
+<div id="pageFeed" class="hidden">
+<div id="feed"></div>
+<p style="text-align:center;color:#888" id="status">Inapakia post...</p>
+</div>
+
+<!-- POST -->
+<div id="pagePost" class="hidden">
+<div class="box">
+<h3>Post Mpya</h3>
+<textarea id="wazo" rows="4" placeholder="Una wazo gani leo? Tabasamu 😊"></textarea>
+<input type="file" id="picha" accept="image/*">
+<button onclick="tuma()">Post Sasa 🚀</button>
+</div>
+</div>
+
+<!-- PROFILE -->
+<div id="pageProfile" class="hidden">
+<div class="card" style="text-align:center">
+<div class="profile-pic" id="profLetter">T</div>
+<h2 id="profName">TAP User</h2>
+<p id="profEmail" style="color:#666"></p>
+<p>⭐ TAP Member | 😊 Tabasamu Daima</p>
+<p><b id="myPostCount">0</b> Posts zako</p>
+<button class="grey" onclick="logout()">Logout</button>
+</div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, increment, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCoIfERsx25cBgxngxqPEfOBh6DOzitepc",
+  authDomain: "tap-4078a.firebaseapp.com",
+  projectId: "tap-4078a",
+  storageBucket: "tap-4078a.firebasestorage.app",
+  messagingSenderId: "1011383596003",
+  appId: "1:1011383596003:web:819a333518ba1385a226d6"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const postsRef = collection(db, "posts");
+let currentUser = null;
+
+window.showPage = function(p){
+  ['Feed','Post','Profile'].forEach(x=>document.getElementById('page'+x).classList.add('hidden'));
+  ['mFeed','mPost','mProfile'].forEach(x=>document.getElementById(x).classList.remove('active'));
+  if(p==='feed'){document.getElementById('pageFeed').classList.remove('hidden');document.getElementById('mFeed').classList.add('active')}
+  if(p==='post'){document.getElementById('pagePost').classList.remove('hidden');document.getElementById('mPost').classList.add('active')}
+  if(p==='profile'){document.getElementById('pageProfile').classList.remove('hidden');document.getElementById('mProfile').classList.add('active')}
 }
-if(users.length===0) defaultData();
-let changed=false;
-users.forEach(u=>{ if(u.name==='Said KAPWILE'){ if(u.phone!=='0688472790'||u.pass!=='1234'){u.phone='0688472790';u.pass='1234';changed=true;} } });
-if(changed) saveAll();
-function saveAll(){localStorage.setItem('tap_posts',JSON.stringify(posts));localStorage.setItem('tap_users',JSON.stringify(users));localStorage.setItem('tap_notifs',JSON.stringify(notifs));}
-function resetApp(){ if(confirm('Nifute data zote za zamani na nirudishe mpya?')){ localStorage.clear(); defaultData(); location.reload(); } }
-function loginBosi(){
-let u=users.find(x=>x.name==='Said KAPWILE');
-if(!u){ defaultData(); u=users[0]; }
-currentUser=u; localStorage.setItem('tap_current',JSON.stringify(u)); closeM('loginModal'); updateTop(); render(); alert('Karibu Bosi Said KAPWILE! 👑');
+window.register = async function(){
+  let email=document.getElementById('authEmail').value, pass=document.getElementById('authPass').value;
+  if(!email||!pass){document.getElementById('authMsg').innerText='Jaza Email na Password!';return}
+  try{await createUserWithEmailAndPassword(auth,email,pass)}catch(e){document.getElementById('authMsg').innerText='Imeshindikana: '+e.message}
 }
-function addNotif(m){notifs.unshift({msg:m,time:new Date().toLocaleTimeString()}); if(notifs.length>20) notifs=notifs.slice(0,20); saveAll(); updateNotif();}
-function updateNotif(){document.getElementById('notifCount').innerText=notifs.length;}
-function updateTop(){let el=document.getElementById('topBtns'); if(currentUser){el.innerHTML=`<span style="font-size:12px">👋 ${currentUser.name.split(' ')[0]}</span><button class="btn btn-o" onclick="doLogout()">Toka</button>`; document.getElementById('welcomeBox').style.display='none';} else{el.innerHTML=`<button class="btn btn-o" onclick="openM('loginModal')">Ingia</button><button class="btn" onclick="openM('regModal')">Jiunge</button>`;}}
-function openM(id){document.getElementById(id).classList.add('show')} function closeM(id){document.getElementById(id).classList.remove('show')} function switchM(a,b){closeM(a);openM(b)}
-function setCat(c,el){cat=c;showReelsOnly=(c==='Reels');document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));el.classList.add('active');render()}
-function goHome(){cat='Zote';showReelsOnly=false;render()} function goReels(){cat='Reels';showReelsOnly=true;render();window.scrollTo(0,0)}
-function doRegister(){let name=document.getElementById('regName').value.trim(),phone=document.getElementById('regPhone').value.trim(),pass=document.getElementById('regPass').value.trim(),type=document.getElementById('regType').value; if(!name||!phone||!pass){alert('Jaza kila kitu!');return} if(users.find(u=>u.phone===phone)){alert('Namba hii ishajiunga! Ingia tu.');switchM('regModal','loginModal');return} let u={name,phone,pass,type,pic:'',bio:''}; users.push(u); currentUser=u; localStorage.setItem('tap_current',JSON.stringify(u)); saveAll(); closeM('regModal'); updateTop(); render(); addNotif('🎉 '+name+' amejiunga TAP!'); alert('Hongera '+name+'!');}
-function doLogin(){let phone=document.getElementById('loginPhone').value.trim(),pass=document.getElementById('loginPass').value.trim(); if(phone==='0688472790'&&pass==='1234'){loginBosi();return;} let u=users.find(x=>x.phone===phone&&x.pass===pass); if(!u){alert('Namba au password sio sahihi! Bonyeza INGIA KAMA BOSI au FUTA DATA YA ZAMANI');return} currentUser=u; localStorage.setItem('tap_current',JSON.stringify(u)); closeM('loginModal'); updateTop(); render(); alert('Karibu tena '+u.name+'!');}
-function doLogout(){currentUser=null; localStorage.removeItem('tap_current'); updateTop(); render();}
-function logoutBtn(){if(confirm('Unataka kutoka?')) doLogout()}
-function openPost(){if(!currentUser){alert('Jiunge kwanza!');openM('regModal');return} openM('postModal')}
-function savePost(){let title=document.getElementById('postTitle').value.trim(),price=document.getElementById('postPrice').value||0,cat2=document.getElementById('postCat').value,desc=document.getElementById('postDesc').value.trim(),file=document.getElementById('postFile').files[0]; if(!title){alert('Weka jina!');return} let img='https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700',isVideo=false; if(file){img=URL.createObjectURL(file);isVideo=file.type.startsWith('video');} let p={id:Date.now(),name:currentUser.name,phone:currentUser.phone,title,price:parseInt(price),cat:cat2,desc,likes:0,img,isVideo}; posts.unshift(p); saveAll(); closeM('postModal'); render(); addNotif('🔥 '+currentUser.name+' ame-post: '+title); alert('Post imetoka! 💰');}
-function likePost(id){let p=posts.find(x=>x.id===id); if(p){p.likes++; saveAll(); render(); addNotif('❤️ Mtu ame-like: '+p.title);}}
-function openNotif(){let box=document.getElementById('notifBox'); box.innerHTML=notifs.length===0?'<p>Hakuna notification.</p>':notifs.map(n=>`<div class="notif-item">${n.msg}<br><small>${n.time}</small></div>`).join(''); openM('notifModal');}
-function openProfile(){if(!currentUser){openM('regModal');return} let myPosts=posts.filter(p=>p.phone===currentUser.phone); let u=currentUser; document.getElementById('profileBox').innerHTML=`<div class="profile-top"><div class="avatar">${u.pic?`<img src="${u.pic}">`:u.name.charAt(0)}</div><h2>${u.name}</h2><p>${u.type} • ${u.phone}</p><p>${u.bio||''}</p><p style="color:#ffcc00">📦 Posts: ${myPosts.length} • ❤️ ${myPosts.reduce((a,b)=>a+b.likes,0)}</p></div><label>Badilisha Picha ya Profile</label><input type="file" accept="image/*" onchange="changePic(event)"><label>Bio</label><input id="bioInput" value="${u.bio||''}"><button onclick="saveBio()">HIFADHI BIO ✅</button>`; openM('profileModal');}
-function changePic(e){let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=function(){currentUser.pic=r.result; let idx=users.findIndex(u=>u.phone===currentUser.phone); if(idx>=0) users[idx]=currentUser; localStorage.setItem('tap_current',JSON.stringify(currentUser)); saveAll(); openProfile(); alert('Picha imebadilika! ✅')}; r.readAsDataURL(f);}
-function saveBio(){let b=document.getElementById('bioInput').value; currentUser.bio=b; let idx=users.findIndex(u=>u.phone===currentUser.phone); if(idx>=0) users[idx]=currentUser; localStorage.setItem('tap_current',JSON.stringify(currentUser)); saveAll(); alert('Bio imehifadhiwa!'); openProfile();}
-function render(){let q=document.getElementById('searchInput').value.toLowerCase(); let filtered=posts.filter(p=>{let mCat=cat==='Zote'||p.cat===cat; let mSearch=!q||(p.title+' '+p.desc+' '+p.name).toLowerCase().includes(q); let mReel=!showReelsOnly||p.cat==='Reels'||p.isVideo; return mCat&&mSearch&&mReel;}); let feed=document.getElementById('feed'); if(filtered.length===0){feed.innerHTML=`<div class="empty"><h2>😔 Hakuna kitu</h2></div>`;return} feed.innerHTML=filtered.map(p=>{let user=users.find(u=>u.phone===p.phone); let pic=user&&user.pic?`<img src="${user.pic}">`:p.name.charAt(0); let media=p.isVideo?`<video src="${p.img}" controls playsinline></video>`:`<img src="${p.img}">`; let badge=p.name==='Said KAPWILE'?' 👑 BOSI':''; return `<div class="card"><div class="head"><div class="avatar">${pic}</div><div><b>${p.name}${badge}</b><br><small>${p.phone} • ${p.cat}</small></div></div>${media}<div class="body"><b>${p.title}</b><p>${p.desc||''}</p><div class="price">${p.price>0?'TZS '+p.price.toLocaleString():'BURE'}</div></div><a class="call" href="https://wa.me/255${p.phone.replace(/^0/,'')}" target="_blank">📲 WhatsApp - ${p.phone}</a><div class="actions"><button onclick="likePost(${p.id})">❤️ ${p.likes} Like</button><button onclick="alert('Copy link!')">↗️ Share</button><button>💬 Comment</button></div></div>`}).join('');}
-updateTop(); updateNotif(); render();
-</script></body></html>
+window.login = async function(){
+  let email=document.getElementById('authEmail').value, pass=document.getElementById('authPass').value;
+  try{await signInWithEmailAndPassword(auth,email,pass)}catch(e){document.getElementById('authMsg').innerText='Email au Password sio sahihi!'}
+}
+window.logout = async function(){await signOut(auth); location.reload()}
+onAuthStateChanged(auth,(user)=>{
+  if(user){
+    currentUser=user;
+    document.getElementById('pageAuth').classList.add('hidden');
+    document.getElementById('menu').style.display='flex';
+    document.getElementById('pageFeed').classList.remove('hidden');
+    let name=document.getElementById('authName').value || user.email.split('@')[0];
+    document.getElementById('profName').innerText=name;
+    document.getElementById('profEmail').innerText=user.email;
+    document.getElementById('profLetter').innerText=name.charAt(0).toUpperCase();
+  }
+});
+const q = query(postsRef, orderBy("time","desc"));
+onSnapshot(q,(snap)=>{
+  document.getElementById('status').innerText = snap.empty ? 'Hakuna post bado. Kuwa wa kwanza!' : '';
+  let feed=document.getElementById('feed'); feed.innerHTML='';
+  let myCount=0;
+  snap.forEach((d)=>{
+    let p=d.data();
+    if(currentUser && p.email===currentUser.email) myCount++;
+    let div=document.createElement('div'); div.className='post';
+    div.innerHTML='<b>'+(p.jina||'TAP')+'</b> <span style="color:#888;font-size:12px">'+(p.email||'')+'</span><p>'+(p.wazo||'')+'</p>'+(p.img?'<img src="'+p.img+'">':'')+'<div class="actions"><span onclick="likePost(\''+d.id+'\')">👍 Like (<b>'+(p.likes||0)+'</b>)</span><span onclick="commentPost(\''+d.id+'\')">💬 Comment</span><span onclick="sharePost()">↗️ Share</span></div><div id="c-'+d.id+'"></div>';
+    feed.appendChild(div);
+  });
+  document.getElementById('myPostCount').innerText=myCount;
+});
+window.tuma = async function(){
+  let wazo=document.getElementById('wazo').value;
+  let file=document.getElementById('picha').files[0];
+  if(!wazo && !file){alert('Andika kitu kwanza!');return}
+  let imgData='';
+  if(file){ imgData=await new Promise(res=>{let r=new FileReader(); r.onload=e=>res(e.target.result); r.readAsDataURL(file)}) }
+  let name=document.getElementById('authName').value || currentUser.email.split('@')[0];
+  await addDoc(postsRef,{jina:name, email:currentUser.email, wazo, img:imgData, likes:0, time:serverTimestamp()});
+  document.getElementById('wazo').value=''; document.getElementById('picha').value='';
+  showPage('feed'); alert('Imetumwa! 😊');
+}
+window.likePost = async function(id){ await updateDoc(doc(db,"posts",id),{likes:increment(1)}) }
+window.commentPost = async function(id){
+  let c=prompt('Andika Comment yako:');
+  if(c){ let el=document.getElementById('c-'+id); el.innerHTML+='<div class="comment"><b>'+(currentUser.email.split('@')[0])+'</b>: '+c+'</div>' }
+}
+window.sharePost = function(){ alert('Link imenakiliwa! Mtumie rafiki yako 😊'); }
+</script>
+</body>
+</html>
