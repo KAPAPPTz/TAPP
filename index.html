@@ -4,52 +4,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TAP - Tabasamu APP</title>
 <style>
-body{font-family:Arial;background:#fff8f0;margin:0;padding:20px;text-align:center}
-.box{background:white;padding:25px;border-radius:20px;max-width:400px;margin:50px auto;box-shadow:0 2px 10px #ddd}
-input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}
-button{background:orange;color:white;border:none;padding:12px;width:100%;border-radius:20px;font-weight:bold;font-size:16px}
+body{font-family:Arial;background:#fff5e6;margin:0;padding:15px;text-align:center}
+.box{background:white;padding:25px;border-radius:15px;max-width:400px;margin:auto;box-shadow:0 0 10px #ddd}
+input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
+button{background:orange;color:white;border:none;padding:13px;width:100%;border-radius:8px;font-size:16px;font-weight:bold}
 a{color:orange;font-weight:bold;text-decoration:none}
 .logo{font-size:50px}
+.contact{background:black;color:white;padding:20px;border-radius:15px;margin-top:20px}
+.contact a{color:#25D366}
 </style>
 </head>
 <body>
 <div class="box">
 <div class="logo">😊</div>
-<h1>TAP</h1>
-<p>Tabasamu APP - Post, Like, Cheka!</p>
-<input id="email" placeholder="Email yako">
-<input id="pass" type="password" placeholder="Password">
-<button id="loginBtn">Ingia TAP ➤</button>
-<p id="msg" style="color:green"></p>
-<br>
-<a href="feed.html">Ingia kama Mgeni - Tazama Feed ➤</a>
-<br><br>
-<a href="profile.html">Profile Yangu</a>
+<h1>TAP - Tabasamu APP</h1>
+<p>Karibu KAPWILE TV</p>
+<input type="text" id="name" placeholder="Jina lako">
+<input type="text" id="phone" placeholder="Namba ya simu">
+<button onclick="ingia()">INGIA KWENYE APP</button>
+<p><a href="#">Tazama Video</a></p>
 </div>
-<script type="module">
-import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-document.getElementById("loginBtn").onclick = async () => {
-  const e = document.getElementById("email").value;
-  const p = document.getElementById("pass").value;
-  if(!e || !p) return alert("Weka email na password!");
-  try {
-    await signInWithEmailAndPassword(auth, e, p);
-    document.getElementById("msg").innerText = "Karibu! Unaingia...";
-    setTimeout(()=> location.href="feed.html", 1000);
-  } catch(err) {
-    try {
-      await createUserWithEmailAndPassword(auth, e, p);
-      document.getElementById("msg").innerText = "Akaunti imefunguliwa! Karibu TAP!";
-      setTimeout(()=> location.href="feed.html", 1000);
-    } catch(e2){ alert(e2.message); }
-  }
-};
-console.log("index.html IMEUNGANISHWA na Firebase!");
+
+<div class="contact">
+<h3>Wasiliana Nami - KAPWILE TV</h3>
+<p>📞 Call: <a href="tel:+255688472790">0688 472 790</a></p>
+<p>📞 Call 2: <a href="tel:+255775817505">0775 817 505</a></p>
+<p>💬 <a href="https://wa.me/255688472790">WhatsApp Mimi Hapa</a></p>
+</div>
+
+<script>
+function ingia(){
+  var jina = document.getElementById('name').value;
+  var simu = document.getElementById('phone').value;
+  if(jina==""){alert("Weka jina lako kwanza");return;}
+  alert("Karibu "+jina+"! Umeingia TAP!");
+}
 </script>
 </body>
 </html>
-<div style="text-align:center; padding:20px;">
-  <p>Call: 0688 472 790</p>
-  <p>Call 2: 0775 817 505</p>
-</div>
