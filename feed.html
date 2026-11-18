@@ -1,1 +1,48 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAP - Feed</title>
+<style>
+body{font-family:Arial;background:#fff8f0;margin:0;padding:10px}
+.top{background:orange;color:white;padding:15px;text-align:center;font-weight:bold;font-size:20px;border-radius:10px}
+.box{background:white;padding:15px;border-radius:15px;margin:10px 0;box-shadow:0 2px 8px #ddd}
+input,textarea{width:100%;padding:10px;margin:5px 0;border:1px solid #ddd;border-radius:10px}
+button{background:orange;color:white;border:none;padding:10px 20px;border-radius:20px;font-weight:bold}
+.nav{text-align:center;margin:15px}
+.nav a{color:orange;font-weight:bold;text-decoration:none;margin:0 10px}
+.post{border-top:1px solid #eee;padding-top:10px}
+</style>
+</head>
+<body>
+<div class="top">😊 TAP - Tabasamu APP</div>
+<div class="nav"><a href="index.html">Nyumbani</a> | <a href="profile.html">Profile</a></div>
+<div class="box">
+<textarea id="text" placeholder="Unatabasamu nini leo? 😊"></textarea>
+<button id="postBtn">Post Tabasamu ➤</button>
+</div>
+<div class="box" id="feed">
+<p>Karibu TAP! Post yako ya kwanza itaonekana hapa...</p>
+</div>
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const feedEl = document.getElementById("feed");
+document.getElementById("postBtn").onclick = async () => {
+  const t = document.getElementById("text").value;
+  if(!t) return alert("Andika kitu kwanza!");
+  await addDoc(collection(db,"posts"),{text:t,createdAt:serverTimestamp()});
+  document.getElementById("text").value="";
+};
+onSnapshot(query(collection(db,"posts"),orderBy("createdAt","desc")), (snap)=>{
+  feedEl.innerHTML="";
+  snap.forEach(d=>{
+    const p=d.data();
+    feedEl.innerHTML+=`<div class="post"><b>@tabasamu</b><p>${p.text}</p><button>❤️ Like</button> <button>💬 Comment</button><hr></div>`;
+  });
+  if(snap.empty) feedEl.innerHTML="<p>Hakuna post bado. Kuwa wa kwanza!</p>";
+});
+</script>
+</body>
+</html>
