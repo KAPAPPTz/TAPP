@@ -6,56 +6,58 @@
 <title>TAP</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f0f2f5}
-.top{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px;position:sticky;top:0;z-index:99;box-shadow:0 1px 5px #ccc}
-.top b{font-size:30px;color:#1877f2}
-.top span{font-size:22px;margin-left:12px}
-.mind{background:#fff;display:flex;gap:8px;align-items:center;padding:12px;margin:10px 10px 0;border-radius:10px}
-.mind img{width:40px;height:40px;border-radius:50%}
-.mind input{flex:1;background:#f0f2f5;border:none;padding:12px;border-radius:20px;font-size:15px}
+body{background:#fff5eb;padding-bottom:70px}
+.top{background:#000;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;position:sticky;top:0;z-index:99}
+.top b{font-size:32px;color:#ff6b00}
+.top b span{color:#fff}
+.top span{font-size:22px;margin-left:12px;color:#fff}
+.mind{background:#fff;display:flex;gap:8px;align-items:center;padding:12px;margin:10px;border-radius:15px;border:1px solid #ffd9b3}
+.mind img{width:42px;height:42px;border-radius:50%;border:2px solid #ff6b00}
+.mind input{flex:1;background:#fff5eb;border:none;padding:12px;border-radius:20px;font-size:15px}
+.post-btn{background:#ff6b00;color:#fff;border:none;padding:13px;width:100%;border-radius:10px;font-weight:bold;font-size:17px;margin-top:10px}
 .stories{display:flex;gap:8px;overflow-x:auto;padding:10px}
-.story{min-width:110px;height:180px;border-radius:10px;overflow:hidden;position:relative;background:#000;color:#fff}
-.story img{width:100%;height:100%;object-fit:cover}
-.story p{position:absolute;bottom:8px;left:8px;font-weight:bold;font-size:13px}
-.create{background:#1877f2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.create div{font-size:40px}
-.create2{background:#e91e63;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.post{background:#fff;margin:10px;border-radius:10px;overflow:hidden}
+.story{min-width:110px;height:180px;border-radius:15px;overflow:hidden;position:relative;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.story.orange{background:#ff6b00}
+.story.black{background:#000}
+.story div{font-size:40px}
+.post{background:#fff;margin:10px;border-radius:15px;overflow:hidden;border:1px solid #ffd9b3}
 .head{display:flex;gap:10px;align-items:center;padding:10px}
 .head img{width:40px;height:40px;border-radius:50%}
-.head small{color:#666}
-.post img.main{width:100%}
+.head small{color:#888}
 .post p{padding:10px}
 .actions{display:flex;justify-content:space-around;border-top:1px solid #eee;padding:12px;color:#555}
-.post-btn{background:#1877f2;color:#fff;border:none;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:16px;margin-top:10px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#000;display:flex;justify-content:space-around;padding:10px 0;z-index:99}
+.bottom div{text-align:center;font-size:12px;color:#fff;font-weight:bold}
+.bottom div.active{color:#ff6b00}
+.bottom div span{font-size:24px;display:block}
 </style>
 </head>
 <body>
 
-<div class="top"><b>facebook</b><div><span>➕</span><span>🔍</span><span>💬</span></div></div>
-<div style="text-align:center;background:#1877f2;color:#fff;padding:6px;font-weight:bold">TAP 🔥 - Kama Facebook, ya Kitanzania</div>
+<div class="top"><b>TAP<span> 🔥</span></b><div><span>➕</span><span>🔍</span><span>💬</span></div></div>
 
 <div class="mind">
 <img src="https://picsum.photos/100">
-<input id="mind" placeholder="What's on your mind? / Unafikiria nini?">
+<input id="mind" placeholder="Unafikiria nini? / What's on your mind?">
 </div>
-<div style="background:#fff;margin:0 10px 10px;padding:0 12px 12px;border-radius:0 0 10px 10px">
-<button class="post-btn" onclick="postIt()">POST SASA</button>
+<div style="background:#fff;margin:0 10px 10px;padding:0 12px 12px;border-radius:0 0 15px 15px">
+<button class="post-btn" onclick="postIt()">POST SASA 🔥</button>
 </div>
 
 <div class="stories">
-<div class="story create"><div>+</div><p>Create story</p></div>
-<div class="story create2"><div>▶️</div><p>Create reel</p></div>
-<div class="story"><img src="https://picsum.photos/200/300"><p>Werposa Mnaree</p></div>
-<div class="story"><img src="https://picsum.photos/201/300"><p>Chrazy Media</p></div>
+<div class="story orange"><div>+</div><p>Create story</p></div>
+<div class="story black"><div>▶️</div><p>Create reel</p></div>
 </div>
 
 <div id="feed">
-<div class="post">
-<div class="head"><img src="https://picsum.photos/101"><div><b>YANGA FRIENDS</b><br><small>Moris Msafwa • 7h • 🌍</small></div></div>
-<img class="main" src="https://picsum.photos/400/300">
-<div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div>
+<div class="post"><div class="head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE</b><br><small>Sasa hivi • 🌍</small></div></div><p>Karibu TAP! Hapa ni nyumbani kwetu. Post chochote unachofikiria 🔥</p><div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div></div>
 </div>
+
+<div class="bottom">
+<div class="active" onclick="window.scrollTo(0,0)"><span>🏠</span>Home</div>
+<div><span>▶️</span>Reels</div>
+<div onclick="document.getElementById('mind').focus()"><span>➕</span>Post</div>
+<div><span>👤</span>Profile</div>
 </div>
 
 <script>
@@ -67,7 +69,6 @@ d.className='post';
 d.innerHTML='<div class="head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE</b><br><small>Sasa hivi • 🌍</small></div></div><p>'+t+'</p><div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div>';
 document.getElementById('feed').prepend(d);
 document.getElementById('mind').value='';
-alert('Post yako imetumwa!');
 }
 </script>
 </body>
