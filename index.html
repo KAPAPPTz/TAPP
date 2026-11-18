@@ -3,69 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TAP - Post Upate Pesa</title>
+<title>TAP</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f0f2f5}
-.top{background:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 10px;position:sticky;top:0;z-index:99;box-shadow:0 1px 5px #ccc}
-.top b{font-size:28px;color:#000}
-.top b span{color:#1877f2}
-.top .icons{font-size:22px}
-.top .icons span{margin-left:12px}
-.search{background:#f0f2f5;border-radius:20px;padding:8px 12px;margin:10px;color:#666}
-.stories{display:flex;gap:8px;overflow-x:auto;padding:5px 10px}
-.story{min-width:110px;height:180px;border-radius:10px;position:relative;overflow:hidden;background:#000;color:#fff}
-.story img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.top{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px;position:sticky;top:0;z-index:99;box-shadow:0 1px 5px #ccc}
+.top b{font-size:30px;color:#1877f2}
+.top span{font-size:22px;margin-left:12px}
+.mind{background:#fff;display:flex;gap:8px;align-items:center;padding:12px;margin:10px 10px 0;border-radius:10px}
+.mind img{width:40px;height:40px;border-radius:50%}
+.mind input{flex:1;background:#f0f2f5;border:none;padding:12px;border-radius:20px;font-size:15px}
+.stories{display:flex;gap:8px;overflow-x:auto;padding:10px}
+.story{min-width:110px;height:180px;border-radius:10px;overflow:hidden;position:relative;background:#000;color:#fff}
+.story img{width:100%;height:100%;object-fit:cover}
 .story p{position:absolute;bottom:8px;left:8px;font-weight:bold;font-size:13px}
-.story.create{background:#1877f2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.story.create div{font-size:40px}
-.create-post{background:#fff;margin:10px;border-radius:10px;padding:12px}
-.create-post input{width:100%;background:#f0f2f5;border:none;padding:12px;border-radius:20px;margin-bottom:10px}
-.create-post button{width:100%;background:#ffcc00;border:none;padding:12px;border-radius:8px;font-weight:bold;font-size:16px}
+.create{background:#1877f2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.create div{font-size:40px}
+.create2{background:#e91e63;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .post{background:#fff;margin:10px;border-radius:10px;overflow:hidden}
-.post-head{display:flex;align-items:center;gap:10px;padding:10px}
-.post-head img{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.post-head small{color:#666}
+.head{display:flex;gap:10px;align-items:center;padding:10px}
+.head img{width:40px;height:40px;border-radius:50%}
+.head small{color:#666}
 .post img.main{width:100%}
 .post p{padding:10px}
-.actions{display:flex;justify-content:space-around;border-top:1px solid #eee;padding:10px;color:#555}
-.money{background:#1877f2;color:#fff;text-align:center;padding:10px;font-weight:bold}
+.actions{display:flex;justify-content:space-around;border-top:1px solid #eee;padding:12px;color:#555}
+.post-btn{background:#1877f2;color:#fff;border:none;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:16px;margin-top:10px}
 </style>
 </head>
 <body>
 
-<div class="top">
-  <b>TAP<span> 🔥</span></b>
-  <div class="icons"><span>➕</span><span>🔍</span><span>💬</span><span>🔔</span></div>
+<div class="top"><b>facebook</b><div><span>➕</span><span>🔍</span><span>💬</span></div></div>
+<div style="text-align:center;background:#1877f2;color:#fff;padding:6px;font-weight:bold">TAP 🔥 - Kama Facebook, ya Kitanzania</div>
+
+<div class="mind">
+<img src="https://picsum.photos/100">
+<input id="mind" placeholder="What's on your mind? / Unafikiria nini?">
 </div>
-
-<div class="search">🔍 Tafuta jina, bidhaa, bei...</div>
-
-<div class="money">WEKA POST / REEL 💰 - Post video au picha upate pesa!</div>
+<div style="background:#fff;margin:0 10px 10px;padding:0 12px 12px;border-radius:0 0 10px 10px">
+<button class="post-btn" onclick="postIt()">POST SASA</button>
+</div>
 
 <div class="stories">
-  <div class="story create"><div>+</div><p>Create story<br>Weka Post</p></div>
-  <div class="story"><img src="https://picsum.photos/200/300"><p>Said KAPWILE</p></div>
-  <div class="story"><img src="https://picsum.photos/201/300"><p>Biashara</p></div>
-  <div class="story"><img src="https://picsum.photos/202/300"><p>Muziki</p></div>
+<div class="story create"><div>+</div><p>Create story</p></div>
+<div class="story create2"><div>▶️</div><p>Create reel</p></div>
+<div class="story"><img src="https://picsum.photos/200/300"><p>Werposa Mnaree</p></div>
+<div class="story"><img src="https://picsum.photos/201/300"><p>Chrazy Media</p></div>
 </div>
 
-<div class="create-post">
-  <input placeholder="Jina la bidhaa / wimbo">
-  <input placeholder="Bei TZS mf 25000">
-  <input placeholder="Maelezo mafupi...">
-  <button onclick="alert('Post yako imetumwa!')">POST SASA 🔥</button>
-  <p style="text-align:center;margin-top:8px;color:green">📱 Wasiliana WhatsApp - 0712345678</p>
-</div>
-
+<div id="feed">
 <div class="post">
-  <div class="post-head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE BOSI</b><br><small>Biashara • Dar es Salaam • 4h • 🌍</small></div></div>
-  <p>DUKA LA NGUO - Bei nafuu! Karibu sana 🔥</p>
-  <img class="main" src="https://picsum.photos/400/300">
-  <div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span><span>💰 Nunua</span></div>
+<div class="head"><img src="https://picsum.photos/101"><div><b>YANGA FRIENDS</b><br><small>Moris Msafwa • 7h • 🌍</small></div></div>
+<img class="main" src="https://picsum.photos/400/300">
+<div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div>
+</div>
 </div>
 
-<div style="text-align:center;padding:15px;color:#888">TAP - Kama Facebook, lakini ya Kitanzania 🇹🇿</div>
-
+<script>
+function postIt(){
+let t=document.getElementById('mind').value;
+if(!t){alert('Andika kitu kwanza!');return;}
+let d=document.createElement('div');
+d.className='post';
+d.innerHTML='<div class="head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE</b><br><small>Sasa hivi • 🌍</small></div></div><p>'+t+'</p><div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div>';
+document.getElementById('feed').prepend(d);
+document.getElementById('mind').value='';
+alert('Post yako imetumwa!');
+}
+</script>
 </body>
 </html>
