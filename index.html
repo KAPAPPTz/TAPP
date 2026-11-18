@@ -1,117 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="sw">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TAP - Tabasamu APP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAP - Post Upate Pesa</title>
 <style>
-body{font-family:Arial;background:#fff5e6;margin:0;padding:0;text-align:center}
-.box{background:white;padding:20px;border-radius:15px;max-width:450px;margin:15px auto;box-shadow:0 0 10px #ddd}
-input,textarea{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-button{background:#007bff;color:white;border:none;padding:12px;width:100%;border-radius:8px;font-size:15px;font-weight:bold;margin-top:5px;cursor:pointer}
-.btn2{background:#333}.btnSmall{width:auto;padding:8px 15px;font-size:13px}
-a{color:#007bff;font-weight:bold;text-decoration:none}
-.logoImg{width:120px;height:120px;object-fit:contain;border-radius:15px}
-.banner{width:100%;height:140px;object-fit:cover;border-radius:12px;background:#e0f0ff;display:flex;align-items:center;justify-content:center}
-.profilePic{width:90px;height:90px;border-radius:50%;object-fit:cover;border:4px solid white;margin-top:-45px;background:#ddd}
-.videoCard{background:#f9f9f9;border-radius:12px;padding:12px;margin:12px 0;text-align:left}
-.videoCard img{width:100%;border-radius:10px}
-.commentBox{background:#eee;border-radius:8px;padding:8px;margin:5px 0;font-size:14px;text-align:left}
-.tabs{display:flex;gap:5px}.tabs button{flex:1;background:#eee;color:#333}.tabs button.active{background:#007bff;color:white}
-.nav{display:flex;gap:5px;max-width:450px;margin:10px auto}.nav button{flex:1}
-.footerLogo{text-align:center;padding:20px;margin-top:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f0f2f5}
+.top{background:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 10px;position:sticky;top:0;z-index:99;box-shadow:0 1px 5px #ccc}
+.top b{font-size:28px;color:#000}
+.top b span{color:#1877f2}
+.top .icons{font-size:22px}
+.top .icons span{margin-left:12px}
+.search{background:#f0f2f5;border-radius:20px;padding:8px 12px;margin:10px;color:#666}
+.stories{display:flex;gap:8px;overflow-x:auto;padding:5px 10px}
+.story{min-width:110px;height:180px;border-radius:10px;position:relative;overflow:hidden;background:#000;color:#fff}
+.story img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.story p{position:absolute;bottom:8px;left:8px;font-weight:bold;font-size:13px}
+.story.create{background:#1877f2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.story.create div{font-size:40px}
+.create-post{background:#fff;margin:10px;border-radius:10px;padding:12px}
+.create-post input{width:100%;background:#f0f2f5;border:none;padding:12px;border-radius:20px;margin-bottom:10px}
+.create-post button{width:100%;background:#ffcc00;border:none;padding:12px;border-radius:8px;font-weight:bold;font-size:16px}
+.post{background:#fff;margin:10px;border-radius:10px;overflow:hidden}
+.post-head{display:flex;align-items:center;gap:10px;padding:10px}
+.post-head img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.post-head small{color:#666}
+.post img.main{width:100%}
+.post p{padding:10px}
+.actions{display:flex;justify-content:space-around;border-top:1px solid #eee;padding:10px;color:#555}
+.money{background:#1877f2;color:#fff;text-align:center;padding:10px;font-weight:bold}
 </style>
 </head>
 <body>
 
-<div class="box" id="authBox">
-<img src="IMG-20261116-WA5677.jpg" class="logoImg">
-<h1>TAP - Tabasamu APP</h1>
-<p>Karibu KAPWILE TV</p>
-<div class="tabs">
-<button id="tabReg" class="active" onclick="showReg()">JIUNGE</button>
-<button id="tabLogin" onclick="showLogin()">INGIA</button>
-</div>
-<div id="regForm">
-<input id="regName" placeholder="Jina lako kamili">
-<input id="regPhone" placeholder="Namba ya simu">
-<input type="password" id="regPass" placeholder="Password ya siri (min 4)">
-<button onclick="register()">JIUNGE SASA</button>
-</div>
-<div id="loginForm" style="display:none">
-<input id="loginPhone" placeholder="Namba ya simu">
-<input type="password" id="loginPass" placeholder="Password yako">
-<button onclick="login()">INGIA KWENYE APP</button>
-</div>
+<div class="top">
+  <b>TAP<span> 🔥</span></b>
+  <div class="icons"><span>➕</span><span>🔍</span><span>💬</span><span>🔔</span></div>
 </div>
 
-<div id="mainApp" style="display:none;max-width:450px;margin:auto;padding:10px">
-<div class="nav">
-<button onclick="showPage('home')">🏠 Nyumbani</button>
-<button onclick="showPage('videos')">🎬 Video</button>
-<button onclick="showPage('profile')">👤 Profile</button>
+<div class="search">🔍 Tafuta jina, bidhaa, bei...</div>
+
+<div class="money">WEKA POST / REEL 💰 - Post video au picha upate pesa!</div>
+
+<div class="stories">
+  <div class="story create"><div>+</div><p>Create story<br>Weka Post</p></div>
+  <div class="story"><img src="https://picsum.photos/200/300"><p>Said KAPWILE</p></div>
+  <div class="story"><img src="https://picsum.photos/201/300"><p>Biashara</p></div>
+  <div class="story"><img src="https://picsum.photos/202/300"><p>Muziki</p></div>
 </div>
 
-<div id="page-home" class="box">
-<div class="banner"><img src="logo.png" style="height:100px"></div>
-<img id="homePic" class="profilePic" src="">
-<h2 id="homeName">Karibu!</h2>
-<p id="homePhone"></p>
-<p>🎉 Karibu TAP - Tabasamu APP - KAPWILE TV</p>
-<textarea id="postText" placeholder="Andika kitu... mfano Nimefurahi leo!"></textarea>
-<button onclick="addPost()">POST KWA WOTE</button>
-<div id="postsList"></div>
+<div class="create-post">
+  <input placeholder="Jina la bidhaa / wimbo">
+  <input placeholder="Bei TZS mf 25000">
+  <input placeholder="Maelezo mafupi...">
+  <button onclick="alert('Post yako imetumwa!')">POST SASA 🔥</button>
+  <p style="text-align:center;margin-top:8px;color:green">📱 Wasiliana WhatsApp - 0712345678</p>
 </div>
 
-<div id="page-videos" class="box" style="display:none">
-<h2>🎬 Video za KAPWILE TV</h2>
-<input id="videoTitle" placeholder="Jina la Video yako">
-<input id="videoLink" placeholder="Link ya Video - YouTube au link yoyote">
-<button onclick="addVideo()">WEKA VIDEO YANGU</button>
-<div id="videosList"></div>
+<div class="post">
+  <div class="post-head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE BOSI</b><br><small>Biashara • Dar es Salaam • 4h • 🌍</small></div></div>
+  <p>DUKA LA NGUO - Bei nafuu! Karibu sana 🔥</p>
+  <img class="main" src="https://picsum.photos/400/300">
+  <div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span><span>💰 Nunua</span></div>
 </div>
 
-<div id="page-profile" class="box" style="display:none">
-<div class="banner" id="profileBanner"><img src="logo.png" style="height:100px"></div>
-<img id="profilePicImg" class="profilePic" src="">
-<h2 id="profileName"></h2>
-<p id="profilePhoneText"></p>
-<label>Badilisha Picha ya Profile:</label>
-<input type="file" accept="image/*" onchange="uploadPic(event,'pic')">
-<label>Badilisha Banner:</label>
-<input type="file" accept="image/*" onchange="uploadPic(event,'banner')">
-<input id="editName" placeholder="Badilisha Jina">
-<button onclick="saveProfile()">HIFADHI PROFILE</button>
-<button class="btn2" onclick="logout()">TOKA / LOGOUT</button>
-</div>
-</div>
+<div style="text-align:center;padding:15px;color:#888">TAP - Kama Facebook, lakini ya Kitanzania 🇹🇿</div>
 
-<div class="footerLogo">
-<img src="logo.png" style="width:100px">
-<p style="color:#888;font-size:13px;margin:5px">Tabasamu APP - KAPWILE TV</p>
-</div>
-
-<script>
-let current=null;
-function showReg(){document.getElementById('regForm').style.display='block';document.getElementById('loginForm').style.display='none';document.getElementById('tabReg').classList.add('active');document.getElementById('tabLogin').classList.remove('active');}
-function showLogin(){document.getElementById('regForm').style.display='none';document.getElementById('loginForm').style.display='block';document.getElementById('tabReg').classList.remove('active');document.getElementById('tabLogin').classList.add('active');}
-function getUsers(){return JSON.parse(localStorage.getItem('tap_users')||'{}')}
-function saveUsers(u){localStorage.setItem('tap_users',JSON.stringify(u))}
-function register(){
-  let n=document.getElementById('regName').value.trim(),p=document.getElementById('regPhone').value.trim(),pw=document.getElementById('regPass').value.trim();
-  if(!n||!p||!pw){alert("Jaza Jina, Namba na Password!");return;}
-  if(pw.length<4){alert("Password iwe angalau 4!");return;}
-  let u=getUsers(); if(u[p]){alert("Namba hii tayari imejiunga! Ingia.");showLogin();return;}
-  u[p]={name:n,pass:pw,pic:"",banner:""}; saveUsers(u);
-  alert("Hongera "+n+"! Umejiunga! Sasa Ingia."); showLogin();
-}
-function login(){
-  let p=document.getElementById('loginPhone').value.trim(),pw=document.getElementById('loginPass').value.trim();
-  let u=getUsers(); if(!u[p]||u[p].pass!==pw){alert("Namba au Password sio sahihi!");return;}
-  current=p; localStorage.setItem('tap_current',p); openApp();
-}
-function openApp(){
-  let u=getUsers()[current]; if(!u) return;
-  document.getElementById('authBox').style.display='none';
-  document.getElementById('mainApp').style.display='block';
-  document.getElementById('homeName').innerText="Karibu "+u.name;
-  document.getElementById('homePhone').innerText=u.name+" | "+current;
+</body>
+</html>
