@@ -4,25 +4,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TAP - Tabasamu APP</title>
 <style>
-body{font-family:Arial;background:#fff5e6;margin:0;padding:15px;text-align:center}
-.box{background:white;padding:25px;border-radius:15px;max-width:400px;margin:auto;box-shadow:0 0 10px #ddd}
-input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-button{background:orange;color:white;border:none;padding:13px;width:100%;border-radius:8px;font-size:16px;font-weight:bold}
+body{font-family:Arial;background:#fff5e6;margin:0;padding:0;text-align:center}
+.box{background:white;padding:20px;border-radius:15px;max-width:450px;margin:15px auto;box-shadow:0 0 10px #ddd}
+input,textarea{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
+button{background:orange;color:white;border:none;padding:12px;width:100%;border-radius:8px;font-size:15px;font-weight:bold;margin-top:5px;cursor:pointer}
+.btn2{background:#333}.btnSmall{width:auto;padding:8px 15px;font-size:13px}
 a{color:orange;font-weight:bold;text-decoration:none}
 .logo{font-size:50px}
-.contact{background:black;color:white;padding:20px;border-radius:15px;margin-top:20px}
+.contact{background:black;color:white;padding:20px;border-radius:15px;margin:15px auto;max-width:450px}
 .contact a{color:#25D366}
+.banner{width:100%;height:140px;object-fit:cover;border-radius:12px;background:#ffcc80;display:flex;align-items:center;justify-content:center;font-size:40px}
+.profilePic{width:90px;height:90px;border-radius:50%;object-fit:cover;border:4px solid white;margin-top:-45px;background:#ddd}
+.videoCard{background:#f9f9f9;border-radius:12px;padding:12px;margin:12px 0;text-align:left}
+.videoCard img{width:100%;border-radius:10px}
+.commentBox{background:#eee;border-radius:8px;padding:8px;margin:5px 0;font-size:14px;text-align:left}
+.tabs{display:flex;gap:5px}.tabs button{flex:1;background:#eee;color:#333}.tabs button.active{background:orange;color:white}
+.nav{display:flex;gap:5px;max-width:450px;margin:10px auto}.nav button{flex:1}
 </style>
 </head>
 <body>
-<div class="box">
+
+<!-- LOGIN / REGISTER -->
+<div class="box" id="authBox">
 <div class="logo">😊</div>
 <h1>TAP - Tabasamu APP</h1>
 <p>Karibu KAPWILE TV</p>
-<input type="text" id="name" placeholder="Jina lako">
-<input type="text" id="phone" placeholder="Namba ya simu">
-<button onclick="ingia()">INGIA KWENYE APP</button>
-<p><a href="#">Tazama Video</a></p>
+<div class="tabs">
+<button id="tabReg" class="active" onclick="showReg()">JIUNGE</button>
+<button id="tabLogin" onclick="showLogin()">INGIA</button>
+</div>
+<div id="regForm">
+<input id="regName" placeholder="Jina lako kamili">
+<input id="regPhone" placeholder="Namba ya simu">
+<input type="password" id="regPass" placeholder="Password ya siri (min 4)">
+<button onclick="register()">JIUNGE SASA</button>
+</div>
+<div id="loginForm" style="display:none">
+<input id="loginPhone" placeholder="Namba ya simu">
+<input type="password" id="loginPass" placeholder="Password yako">
+<button onclick="login()">INGIA KWENYE APP</button>
+</div>
+</div>
+
+<!-- APP YOTE -->
+<div id="mainApp" style="display:none;max-width:450px;margin:auto;padding:10px">
+<div class="nav">
+<button onclick="showPage('home')">🏠 Nyumbani</button>
+<button onclick="showPage('videos')">🎬 Video</button>
+<button onclick="showPage('profile')">👤 Profile</button>
+</div>
+
+<!-- NYUMBANI -->
+<div id="page-home" class="box">
+<div class="banner" id="homeBanner">😊 TAP</div>
+<img id="homePic" class="profilePic" src="">
+<h2 id="homeName">Karibu!</h2>
+<p id="homePhone"></p>
+<p>🎉 Karibu TAP - Tabasamu APP - KAPWILE TV</p>
+<textarea id="postText" placeholder="Andika kitu... mfano Nimefurahi leo!"></textarea>
+<button onclick="addPost()">POST KWA WOTE</button>
+<div id="postsList"></div>
+</div>
+
+<!-- VIDEO -->
+<div id="page-videos" class="box" style="display:none">
+<h2>🎬 Video za KAPWILE TV</h2>
+<input id="videoTitle" placeholder="Jina la Video yako">
+<input id="videoLink" placeholder="Link ya Video - YouTube au link yoyote">
+<button onclick="addVideo()">WEKA VIDEO YANGU</button>
+<div id="videosList"></div>
+</div>
+
+<!-- PROFILE -->
+<div id="page-profile" class="box" style="display:none">
+<div class="banner" id="profileBanner">🌟 BANNER YANGU</div>
+<img id="profilePicImg" class="profilePic" src="">
+<h2 id="profileName"></h2>
+<p id="profilePhoneText"></p>
+<label>Badilisha Picha ya Profile:</label>
+<input type="file" accept="image/*" onchange="uploadPic(event,'pic')">
+<label>Badilisha Banner:</label>
+<input type="file" accept="image/*" onchange="uploadPic(event,'banner')">
+<input id="editName" placeholder="Badilisha Jina">
+<button onclick="saveProfile()">HIFADHI PROFILE</button>
+<button class="btn2" onclick="logout()">TOKA / LOGOUT</button>
+</div>
 </div>
 
 <div class="contact">
@@ -33,12 +99,86 @@ a{color:orange;font-weight:bold;text-decoration:none}
 </div>
 
 <script>
-function ingia(){
-  var jina = document.getElementById('name').value;
-  var simu = document.getElementById('phone').value;
-  if(jina==""){alert("Weka jina lako kwanza");return;}
-  alert("Karibu "+jina+"! Umeingia TAP!");
+let current=null;
+function showReg(){document.getElementById('regForm').style.display='block';document.getElementById('loginForm').style.display='none';document.getElementById('tabReg').classList.add('active');document.getElementById('tabLogin').classList.remove('active');}
+function showLogin(){document.getElementById('regForm').style.display='none';document.getElementById('loginForm').style.display='block';document.getElementById('tabReg').classList.remove('active');document.getElementById('tabLogin').classList.add('active');}
+function getUsers(){return JSON.parse(localStorage.getItem('tap_users')||'{}')}
+function saveUsers(u){localStorage.setItem('tap_users',JSON.stringify(u))}
+function register(){
+  let n=document.getElementById('regName').value.trim(),p=document.getElementById('regPhone').value.trim(),pw=document.getElementById('regPass').value.trim();
+  if(!n||!p||!pw){alert("Jaza Jina, Namba na Password!");return;}
+  if(pw.length<4){alert("Password iwe angalau 4!");return;}
+  let u=getUsers(); if(u[p]){alert("Namba hii tayari imejiunga! Ingia.");showLogin();return;}
+  u[p]={name:n,pass:pw,pic:"",banner:""}; saveUsers(u);
+  alert("Hongera "+n+"! Umejiunga! Sasa Ingia."); showLogin();
 }
+function login(){
+  let p=document.getElementById('loginPhone').value.trim(),pw=document.getElementById('loginPass').value.trim();
+  let u=getUsers(); if(!u[p]||u[p].pass!==pw){alert("Namba au Password sio sahihi!");return;}
+  current=p; localStorage.setItem('tap_current',p); openApp();
+}
+function openApp(){
+  let u=getUsers()[current]; if(!u) return;
+  document.getElementById('authBox').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  document.getElementById('homeName').innerText="Karibu "+u.name+" 😊";
+  document.getElementById('homePhone').innerText=u.name+" | "+current;
+  document.getElementById('profileName').innerText=u.name;
+  document.getElementById('profilePhoneText').innerText=current;
+  document.getElementById('editName').value=u.name;
+  let pic=u.pic||"https://via.placeholder.com/90";
+  document.getElementById('homePic').src=pic; document.getElementById('profilePicImg').src=pic;
+  if(u.banner){document.getElementById('homeBanner').innerHTML='<img src="'+u.banner+'" style="width:100%;height:140px;object-fit:cover;border-radius:12px">'; document.getElementById('profileBanner').innerHTML='<img src="'+u.banner+'" style="width:100%;height:140px;object-fit:cover;border-radius:12px">';}
+  renderPosts(); renderVideos(); showPage('home');
+}
+function showPage(p){['home','videos','profile'].forEach(x=>document.getElementById('page-'+x).style.display=(x===p?'block':'none'));}
+function uploadPic(e,type){
+  let f=e.target.files[0]; if(!f) return; let r=new FileReader();
+  r.onload=function(){let u=getUsers(); if(type==='pic')u[current].pic=r.result; else u[current].banner=r.result; saveUsers(u); openApp(); alert("Imehifadhiwa!");}; r.readAsDataURL(f);
+}
+function saveProfile(){
+  let u=getUsers(); let nn=document.getElementById('editName').value.trim(); if(nn){u[current].name=nn; saveUsers(u); openApp(); alert("Profile imehifadhiwa!");}
+}
+function addPost(){
+  let t=document.getElementById('postText').value.trim(); if(!t){alert("Andika kitu kwanza!");return;}
+  let posts=JSON.parse(localStorage.getItem('tap_posts')||'[]'); let u=getUsers()[current];
+  posts.unshift({name:u.name,phone:current,text:t,likes:0,comments:[],time:new Date().toLocaleString()});
+  localStorage.setItem('tap_posts',JSON.stringify(posts)); document.getElementById('postText').value=""; renderPosts();
+}
+function renderPosts(){
+  let posts=JSON.parse(localStorage.getItem('tap_posts')||'[]'); let html="";
+  posts.forEach((p,i)=>{
+    html+='<div class="videoCard"><b>'+p.name+'</b> <small>'+p.time+'</small><p>'+p.text+'</p><button class="btnSmall" onclick="likePost('+i+')">❤️ Like ('+p.likes+')</button><div>'+p.comments.map(c=>'<div class="commentBox"><b>'+c.name+':</b> '+c.text+'</div>').join('')+'</div><input id="c'+i+'" placeholder="Andika comment..."><button class="btnSmall" onclick="addComment('+i+')">COMMENT</button></div>';
+  });
+  if(!posts.length) html="<p>Hakuna post bado. Kuwa wa kwanza ku-post!</p>";
+  document.getElementById('postsList').innerHTML=html;
+}
+function likePost(i){let posts=JSON.parse(localStorage.getItem('tap_posts')||'[]'); posts[i].likes++; localStorage.setItem('tap_posts',JSON.stringify(posts)); renderPosts();}
+function addComment(i){
+  let v=document.getElementById('c'+i).value.trim(); if(!v) return; let posts=JSON.parse(localStorage.getItem('tap_posts')||'[]'); let u=getUsers()[current];
+  posts[i].comments.push({name:u.name,text:v}); localStorage.setItem('tap_posts',JSON.stringify(posts)); renderPosts();
+}
+function addVideo(){
+  let t=document.getElementById('videoTitle').value.trim(),l=document.getElementById('videoLink').value.trim();
+  if(!t||!l){alert("Jaza Jina la Video na Link!");return;}
+  let vids=JSON.parse(localStorage.getItem('tap_videos')||'[]'); let u=getUsers()[current];
+  vids.unshift({title:t,link:l,name:u.name,likes:0,comments:[]}); localStorage.setItem('tap_videos',JSON.stringify(vids));
+  document.getElementById('videoTitle').value=""; document.getElementById('videoLink').value=""; renderVideos();
+}
+function renderVideos(){
+  let vids=JSON.parse(localStorage.getItem('tap_videos')||'[]'); let html="";
+  // Video za KAPWILE TV za kwanza
+  html+='<div class="videoCard"><b>KAPWILE TV - Karibu TAP</b><p>Video ya kuanzisha TAP 😊</p><a href="https://youtube.com" target="_blank">▶ Tazama Kwenye YouTube</a></div>';
+  vids.forEach((v,i)=>{
+    html+='<div class="videoCard"><b>'+v.title+'</b> <small>na '+v.name+'</small><p><a href="'+v.link+'" target="_blank">▶ Tazama Video Hii</a></p><button class="btnSmall" onclick="likeVideo('+i+')">❤️ Like ('+v.likes+')</button><div>'+v.comments.map(c=>'<div class="commentBox"><b>'+c.name+':</b> '+c.text+'</div>').join('')+'</div><input id="vc'+i+'" placeholder="Comment kwenye video..."><button class="btnSmall" onclick="addVideoComment('+i+')">COMMENT</button></div>';
+  });
+  document.getElementById('videosList').innerHTML=html;
+}
+function likeVideo(i){let v=JSON.parse(localStorage.getItem('tap_videos')||'[]'); v[i].likes++; localStorage.setItem('tap_videos',JSON.stringify(v)); renderVideos();}
+function addVideoComment(i){let val=document.getElementById('vc'+i).value.trim(); if(!val) return; let v=JSON.parse(localStorage.getItem('tap_videos')||'[]'); let u=getUsers()[current]; v[i].comments.push({name:u.name,text:val}); localStorage.setItem('tap_videos',JSON.stringify(v)); renderVideos();}
+function logout(){localStorage.removeItem('tap_current'); current=null; document.getElementById('mainApp').style.display='none'; document.getElementById('authBox').style.display='block';}
+// Auto-login kama alishangia
+let saved=localStorage.getItem('tap_current'); if(saved && getUsers()[saved]){current=saved; openApp();}
 </script>
 </body>
 </html>
