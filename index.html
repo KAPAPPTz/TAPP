@@ -1,159 +1,51 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TAP - Tabasamu APP</title>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:Arial;background:#f0f2f5}
-.top{background:#1877f2;color:white;padding:14px;text-align:center;font-size:24px;font-weight:bold;position:sticky;top:0;z-index:10}
-.top small{font-size:12px;display:block;font-weight:normal}
-.menu{display:flex;background:white;border-bottom:1px solid #ddd;position:sticky;top:58px;z-index:10}
-.menu div{flex:1;text-align:center;padding:12px;font-weight:bold;cursor:pointer}
-.menu div.active{color:#1877f2;border-bottom:3px solid #1877f2}
-.box,.post,.card{background:white;margin:10px;padding:14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0}
-button{background:#1877f2;color:white;border:0;padding:12px;border-radius:10px;font-weight:bold;width:100%;cursor:pointer;font-size:16px}
-button.green{background:#42b72a} button.grey{background:#e4e6eb;color:#111}
-.post img{width:100%;border-radius:10px;margin-top:8px}
-.actions{display:flex;justify-content:space-between;margin-top:10px;border-top:1px solid #eee;padding-top:10px}
-.actions span{cursor:pointer}
-.profile-pic{width:80px;height:80px;border-radius:50%;background:#1877f2;color:white;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;margin:auto}
-.hidden{display:none}
-.comment{background:#f0f2f5;padding:8px;border-radius:8px;margin:6px 0;font-size:14px}
+body{font-family:Arial;background:#fff8f0;margin:0;padding:20px;text-align:center}
+.box{background:white;padding:25px;border-radius:20px;max-width:400px;margin:50px auto;box-shadow:0 2px 10px #ddd}
+input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}
+button{background:orange;color:white;border:none;padding:12px;width:100%;border-radius:20px;font-weight:bold;font-size:16px}
+a{color:orange;font-weight:bold;text-decoration:none}
+.logo{font-size:50px}
 </style>
 </head>
 <body>
-<div class="top">TAP<small>Tabasamu APP | Everyone is Welcome 😊</small></div>
-
-<div class="menu" id="menu" style="display:none">
-<div id="mFeed" class="active" onclick="showPage('feed')">🏠 Feed</div>
-<div id="mPost" onclick="showPage('post')">➕ Post</div>
-<div id="mProfile" onclick="showPage('profile')">👤 Profile</div>
-</div>
-
-<!-- LOGIN / REGISTER -->
-<div id="pageAuth">
-<div class="card">
-<h2 style="text-align:center">Karibu TAP 😊</h2>
-<p style="text-align:center;color:#666">Register, Post, Like & Smile Together</p>
-<input id="authName" placeholder="Jina lako...">
-<input id="authEmail" placeholder="Email...">
-<input id="authPass" type="password" placeholder="Password...">
-<button onclick="register()">Register Mpya</button>
-<button class="green" style="margin-top:8px" onclick="login()">Login - Nimeshajisajili</button>
-<p id="authMsg" style="text-align:center;color:red"></p>
-<p style="text-align:center;font-size:13px;color:#888">CEO: saidkapwile09@gmail.com</p>
-</div>
-</div>
-
-<!-- FEED -->
-<div id="pageFeed" class="hidden">
-<div id="feed"></div>
-<p style="text-align:center;color:#888" id="status">Inapakia post...</p>
-</div>
-
-<!-- POST -->
-<div id="pagePost" class="hidden">
 <div class="box">
-<h3>Post Mpya</h3>
-<textarea id="wazo" rows="4" placeholder="Una wazo gani leo? Tabasamu 😊"></textarea>
-<input type="file" id="picha" accept="image/*">
-<button onclick="tuma()">Post Sasa 🚀</button>
+<div class="logo">😊</div>
+<h1>TAP</h1>
+<p>Tabasamu APP - Post, Like, Cheka!</p>
+<input id="email" placeholder="Email yako">
+<input id="pass" type="password" placeholder="Password">
+<button id="loginBtn">Ingia TAP ➤</button>
+<p id="msg" style="color:green"></p>
+<br>
+<a href="feed.html">Ingia kama Mgeni - Tazama Feed ➤</a>
+<br><br>
+<a href="profile.html">Profile Yangu</a>
 </div>
-</div>
-
-<!-- PROFILE -->
-<div id="pageProfile" class="hidden">
-<div class="card" style="text-align:center">
-<div class="profile-pic" id="profLetter">T</div>
-<h2 id="profName">TAP User</h2>
-<p id="profEmail" style="color:#666"></p>
-<p>⭐ TAP Member | 😊 Tabasamu Daima</p>
-<p><b id="myPostCount">0</b> Posts zako</p>
-<button class="grey" onclick="logout()">Logout</button>
-</div>
-</div>
-
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, increment, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCoIfERsx25cBgxngxqPEfOBh6DOzitepc",
-  authDomain: "tap-4078a.firebaseapp.com",
-  projectId: "tap-4078a",
-  storageBucket: "tap-4078a.firebasestorage.app",
-  messagingSenderId: "1011383596003",
-  appId: "1:1011383596003:web:819a333518ba1385a226d6"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-const postsRef = collection(db, "posts");
-let currentUser = null;
-
-window.showPage = function(p){
-  ['Feed','Post','Profile'].forEach(x=>document.getElementById('page'+x).classList.add('hidden'));
-  ['mFeed','mPost','mProfile'].forEach(x=>document.getElementById(x).classList.remove('active'));
-  if(p==='feed'){document.getElementById('pageFeed').classList.remove('hidden');document.getElementById('mFeed').classList.add('active')}
-  if(p==='post'){document.getElementById('pagePost').classList.remove('hidden');document.getElementById('mPost').classList.add('active')}
-  if(p==='profile'){document.getElementById('pageProfile').classList.remove('hidden');document.getElementById('mProfile').classList.add('active')}
-}
-window.register = async function(){
-  let email=document.getElementById('authEmail').value, pass=document.getElementById('authPass').value;
-  if(!email||!pass){document.getElementById('authMsg').innerText='Jaza Email na Password!';return}
-  try{await createUserWithEmailAndPassword(auth,email,pass)}catch(e){document.getElementById('authMsg').innerText='Imeshindikana: '+e.message}
-}
-window.login = async function(){
-  let email=document.getElementById('authEmail').value, pass=document.getElementById('authPass').value;
-  try{await signInWithEmailAndPassword(auth,email,pass)}catch(e){document.getElementById('authMsg').innerText='Email au Password sio sahihi!'}
-}
-window.logout = async function(){await signOut(auth); location.reload()}
-onAuthStateChanged(auth,(user)=>{
-  if(user){
-    currentUser=user;
-    document.getElementById('pageAuth').classList.add('hidden');
-    document.getElementById('menu').style.display='flex';
-    document.getElementById('pageFeed').classList.remove('hidden');
-    let name=document.getElementById('authName').value || user.email.split('@')[0];
-    document.getElementById('profName').innerText=name;
-    document.getElementById('profEmail').innerText=user.email;
-    document.getElementById('profLetter').innerText=name.charAt(0).toUpperCase();
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+document.getElementById("loginBtn").onclick = async () => {
+  const e = document.getElementById("email").value;
+  const p = document.getElementById("pass").value;
+  if(!e || !p) return alert("Weka email na password!");
+  try {
+    await signInWithEmailAndPassword(auth, e, p);
+    document.getElementById("msg").innerText = "Karibu! Unaingia...";
+    setTimeout(()=> location.href="feed.html", 1000);
+  } catch(err) {
+    try {
+      await createUserWithEmailAndPassword(auth, e, p);
+      document.getElementById("msg").innerText = "Akaunti imefunguliwa! Karibu TAP!";
+      setTimeout(()=> location.href="feed.html", 1000);
+    } catch(e2){ alert(e2.message); }
   }
-});
-const q = query(postsRef, orderBy("time","desc"));
-onSnapshot(q,(snap)=>{
-  document.getElementById('status').innerText = snap.empty ? 'Hakuna post bado. Kuwa wa kwanza!' : '';
-  let feed=document.getElementById('feed'); feed.innerHTML='';
-  let myCount=0;
-  snap.forEach((d)=>{
-    let p=d.data();
-    if(currentUser && p.email===currentUser.email) myCount++;
-    let div=document.createElement('div'); div.className='post';
-    div.innerHTML='<b>'+(p.jina||'TAP')+'</b> <span style="color:#888;font-size:12px">'+(p.email||'')+'</span><p>'+(p.wazo||'')+'</p>'+(p.img?'<img src="'+p.img+'">':'')+'<div class="actions"><span onclick="likePost(\''+d.id+'\')">👍 Like (<b>'+(p.likes||0)+'</b>)</span><span onclick="commentPost(\''+d.id+'\')">💬 Comment</span><span onclick="sharePost()">↗️ Share</span></div><div id="c-'+d.id+'"></div>';
-    feed.appendChild(div);
-  });
-  document.getElementById('myPostCount').innerText=myCount;
-});
-window.tuma = async function(){
-  let wazo=document.getElementById('wazo').value;
-  let file=document.getElementById('picha').files[0];
-  if(!wazo && !file){alert('Andika kitu kwanza!');return}
-  let imgData='';
-  if(file){ imgData=await new Promise(res=>{let r=new FileReader(); r.onload=e=>res(e.target.result); r.readAsDataURL(file)}) }
-  let name=document.getElementById('authName').value || currentUser.email.split('@')[0];
-  await addDoc(postsRef,{jina:name, email:currentUser.email, wazo, img:imgData, likes:0, time:serverTimestamp()});
-  document.getElementById('wazo').value=''; document.getElementById('picha').value='';
-  showPage('feed'); alert('Imetumwa! 😊');
-}
-window.likePost = async function(id){ await updateDoc(doc(db,"posts",id),{likes:increment(1)}) }
-window.commentPost = async function(id){
-  let c=prompt('Andika Comment yako:');
-  if(c){ let el=document.getElementById('c-'+id); el.innerHTML+='<div class="comment"><b>'+(currentUser.email.split('@')[0])+'</b>: '+c+'</div>' }
-}
-window.sharePost = function(){ alert('Link imenakiliwa! Mtumie rafiki yako 😊'); }
+};
+console.log("index.html IMEUNGANISHWA na Firebase!");
 </script>
 </body>
 </html>
