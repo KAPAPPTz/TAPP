@@ -6,70 +6,109 @@
 <title>TAP</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#fff5eb;padding-bottom:70px}
+body{background:#fff5eb;padding-bottom:75px}
 .top{background:#000;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;position:sticky;top:0;z-index:99}
-.top b{font-size:32px;color:#ff6b00}
-.top b span{color:#fff}
-.top span{font-size:22px;margin-left:12px;color:#fff}
-.mind{background:#fff;display:flex;gap:8px;align-items:center;padding:12px;margin:10px;border-radius:15px;border:1px solid #ffd9b3}
-.mind img{width:42px;height:42px;border-radius:50%;border:2px solid #ff6b00}
-.mind input{flex:1;background:#fff5eb;border:none;padding:12px;border-radius:20px;font-size:15px}
-.post-btn{background:#ff6b00;color:#fff;border:none;padding:13px;width:100%;border-radius:10px;font-weight:bold;font-size:17px;margin-top:10px}
+.top b{font-size:32px;color:#ff6b00}.top b span{color:#fff}
+.top span{font-size:22px;margin-left:10px;color:#fff;cursor:pointer}
+.card{background:#fff;margin:10px;border-radius:15px;border:1px solid #ffd9b3;overflow:hidden}
+.pad{padding:12px}
+.flex{display:flex;gap:8px;align-items:center}
+.flex img{width:42px;height:42px;border-radius:50%;border:2px solid #ff6b00}
+input,textarea{flex:1;background:#fff5eb;border:none;padding:12px;border-radius:20px;font-size:15px;width:100%;outline:none}
+.btn{background:#ff6b00;color:#fff;border:none;padding:13px;width:100%;border-radius:10px;font-weight:bold;font-size:17px;margin-top:10px;cursor:pointer}
+.btn2{background:#000;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;cursor:pointer}
 .stories{display:flex;gap:8px;overflow-x:auto;padding:10px}
-.story{min-width:110px;height:180px;border-radius:15px;overflow:hidden;position:relative;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.story.orange{background:#ff6b00}
-.story.black{background:#000}
+.story{min-width:110px;height:180px;border-radius:15px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+.orange{background:#ff6b00}.black{background:#000}.grey{background:#333}
 .story div{font-size:40px}
-.post{background:#fff;margin:10px;border-radius:15px;overflow:hidden;border:1px solid #ffd9b3}
 .head{display:flex;gap:10px;align-items:center;padding:10px}
 .head img{width:40px;height:40px;border-radius:50%}
 .head small{color:#888}
-.post p{padding:10px}
-.actions{display:flex;justify-content:space-around;border-top:1px solid #eee;padding:12px;color:#555}
+.actions{display:flex;justify-content:space-around;border-top:1px solid #eee;padding:12px;color:#555;cursor:pointer}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#000;display:flex;justify-content:space-around;padding:10px 0;z-index:99}
-.bottom div{text-align:center;font-size:12px;color:#fff;font-weight:bold}
-.bottom div.active{color:#ff6b00}
-.bottom div span{font-size:24px;display:block}
+.bottom div{text-align:center;font-size:12px;color:#fff;font-weight:bold;cursor:pointer}
+.bottom div.active{color:#ff6b00}.bottom div span{font-size:24px;display:block}
+.page{display:none}.page.active{display:block}
+.reel{height:320px;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:15px;margin:10px}
+.reel div{font-size:60px}
+#loginBox{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;overflow-y:auto}
+.login{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:360px;text-align:center}
+.login h1{font-size:38px;color:#ff6b00}
+.login input{margin:8px 0;border:1px solid #ffd9b3}
+.badge{background:#ff6b00;color:#fff;border-radius:20px;padding:3px 10px;font-size:12px}
 </style>
 </head>
 <body>
 
-<div class="top"><b>TAP<span> 🔥</span></b><div><span>➕</span><span>🔍</span><span>💬</span></div></div>
+<div id="loginBox"><div class="login">
+<h1>TAP 🔥</h1><p><b>Karibu TAP - Tanzania!</b><br><small>Jisajili kwa simu yako - Bure kabisa, hata majimbo inafanya kazi</small></p>
+<input id="rName" placeholder="Jina lako kamili">
+<input id="rPhone" placeholder="Namba ya simu - 0712345678" type="tel">
+<input id="rPass" placeholder="Password" type="password">
+<button class="btn" onclick="register()">JISAJILI SASA 🔥</button>
+<p style="margin-top:12px"><small>Tayari una akaunti? <b style="color:#ff6b00;cursor:pointer" onclick="loginOld()">INGIA HAPA</b></small></p>
+<p id="msg" style="color:green;font-size:13px;margin-top:8px"></p>
+<p style="margin-top:10px"><small>🌍 Majimbo yote: Dar, Arusha, Mwanza, Mbeya, Dodoma, Zanzibar... Karibu!</small></p>
+</div></div>
 
-<div class="mind">
-<img src="https://picsum.photos/100">
-<input id="mind" placeholder="Unafikiria nini? / What's on your mind?">
-</div>
-<div style="background:#fff;margin:0 10px 10px;padding:0 12px 12px;border-radius:0 0 15px 15px">
-<button class="post-btn" onclick="postIt()">POST SASA 🔥</button>
-</div>
+<div class="top"><b>TAP<span> 🔥</span></b><div><span onclick="showPage('search')">🔍</span><span onclick="showPage('notif')">🔔</span><span onclick="showPage('msg')">💬</span></div></div>
 
+<!-- HOME -->
+<div id="page-home" class="page active">
+<div class="card pad"><div class="flex"><img src="https://picsum.photos/100"><input id="mind" placeholder="Unafikiria nini, mkuu?"></div><button class="btn" onclick="postIt()">POST SASA 🔥</button><p style="text-align:center;margin-top:8px"><small>📷 <span onclick="alert('Chagua picha kutoka simu yako - inakuja!')">Weka Picha</span> | 🎥 <span onclick="showPage('reels')">Weka Reel</span> | 📍 <span onclick="alert('Location: Tanzania')">Location</span></small></p></div>
 <div class="stories">
-<div class="story orange"><div>+</div><p>Create story</p></div>
-<div class="story black"><div>▶️</div><p>Create reel</p></div>
+<div class="story orange" onclick="alert('Story yako itaonekana hapa!')"><div>+</div><p>Create story</p></div>
+<div class="story black" onclick="showPage('reels')"><div>▶️</div><p>Create reel</p></div>
+<div class="story grey"><div>🔥</div><p>Trending TZ</p></div>
+<div class="story orange"><div>⚽</div><p>Yanga / Simba</p></div>
+</div>
+<div id="feed">
+<div class="card"><div class="head"><img src="https://picsum.photos/101"><div style="flex:1"><b>Said KAPWILE</b> <span class="badge">ADMIN</span><br><small>Sasa hivi • Dar es Salaam 🌍</small></div><button class="btn2" onclick="this.innerText='Following ✓'">Follow</button></div><p>Karibu TAP! Hapa ni nyumbani kwetu. Watu wote wa majimbo karibuni! Post chochote unachofikiria 🔥</p><img src="https://picsum.photos/600/300" style="width:100%"><div class="actions"><span onclick="like(this)">👍 Like <b>0</b></span><span onclick="commentIt(this)">💬 Comment</span><span onclick="alert('Link imekopiwa! Tuma kwa WhatsApp')">↗️ Share</span></div><div class="pad" style="display:none"><input placeholder="Andika comment..."><button class="btn" onclick="alert('Comment imetumwa!')">Tuma</button></div></div>
+</div>
 </div>
 
-<div id="feed">
-<div class="post"><div class="head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE</b><br><small>Sasa hivi • 🌍</small></div></div><p>Karibu TAP! Hapa ni nyumbani kwetu. Post chochote unachofikiria 🔥</p><div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div></div>
+<!-- REELS -->
+<div id="page-reels" class="page">
+<div class="card pad"><b>🎬 REELS - Video Fupi za TAP</b></div>
+<div class="reel"><div>▶️</div><p>Reel ya Said KAPWILE</p><small>🔥 1.2K views • Like • Comment • Share</small><button class="btn" style="width:200px" onclick="alert('Reel inaanza kupakiwa!')">+ WEKA REEL YAKO</button></div>
+<div class="reel" style="background:#ff6b00"><div>⚽</div><p>Magoli ya Yanga Leo!</p><small>🔥 5K views</small></div>
+<div class="reel" style="background:#333"><div>🎵</div><p>Nyimbo Mpya za Bongo</p><small>🔥 3K views</small></div>
+</div>
+
+<!-- SEARCH -->
+<div id="page-search" class="page"><div class="card pad"><input id="searchInput" placeholder="🔍 Tafuta mtu, jina, mkoa..." onkeyup="doSearch()"><div id="searchRes" style="margin-top:10px"><p>👤 Said KAPWILE - Dar es Salaam</p><p>👤 Juma Mushi - Arusha</p><p>👤 Neema - Mwanza</p><p>👤 Baraka - Mbeya</p><p>👤 Aisha - Zanzibar</p><p>👤 John - Dodoma</p></div></div></div>
+
+<!-- NOTIF -->
+<div id="page-notif" class="page"><div class="card pad"><b>🔔 ARIFA ZAKO</b><p style="margin-top:10px">👍 Juma amekulike post yako</p><p>💬 Neema amekomenti: "Safi sana mkuu!"</p><p>👤 Baraka amekufollow</p><p>🔥 Post yako imeonekana mara 100!</p></div></div>
+
+<!-- MSG -->
+<div id="page-msg" class="page"><div class="card pad"><b>💬 UJUMBE</b><p style="margin-top:10px">👤 Juma: Mambo mkuu?</p><p>👤 Neema: TAP ni kali 🔥</p><input placeholder="Andika ujumbe..."><button class="btn" onclick="alert('Ujumbe umetumwa!')">TUMA</button></div></div>
+
+<!-- PROFILE -->
+<div id="page-profile" class="page">
+<div class="card pad" style="text-align:center"><img src="https://picsum.photos/100" style="width:90px;height:90px;border-radius:50%;border:3px solid #ff6b00"><h2 id="pName">Said KAPWILE</h2><p id="pPhone">0712345678</p><p><b>120</b> Followers • <b>80</b> Following • <b>15</b> Posts</p><p>📍 Tanzania - Majimbo yote 🌍</p><button class="btn2" onclick="alert('Badilisha picha yako!')">Badilisha Picha</button> <button class="btn2" style="background:#ff6b00" onclick="logout()">Logout</button></div>
+<div class="card pad"><b>⚙️ SETTINGS</b><p>🔔 Notifications: ON</p><p>🌙 Dark Mode: TAP Black</p><p>🌍 Mkoa wangu: <select><option>Dar es Salaam</option><option>Arusha</option><option>Mwanza</option><option>Mbeya</option><option>Dodoma</option><option>Zanzibar</option><option>Morogoro</option><option>Tanga</option></select></p><p>📞 Msaada: WhatsApp TAP</p></div>
 </div>
 
 <div class="bottom">
-<div class="active" onclick="window.scrollTo(0,0)"><span>🏠</span>Home</div>
-<div><span>▶️</span>Reels</div>
-<div onclick="document.getElementById('mind').focus()"><span>➕</span>Post</div>
-<div><span>👤</span>Profile</div>
+<div class="active" id="nav-home" onclick="showPage('home')"><span>🏠</span>Home</div>
+<div id="nav-reels" onclick="showPage('reels')"><span>▶️</span>Reels</div>
+<div onclick="showPage('home');document.getElementById('mind').focus()"><span>➕</span>Post</div>
+<div id="nav-profile" onclick="showPage('profile')"><span>👤</span>Profile</div>
 </div>
 
 <script>
-function postIt(){
-let t=document.getElementById('mind').value;
-if(!t){alert('Andika kitu kwanza!');return;}
-let d=document.createElement('div');
-d.className='post';
-d.innerHTML='<div class="head"><img src="https://picsum.photos/100"><div><b>Said KAPWILE</b><br><small>Sasa hivi • 🌍</small></div></div><p>'+t+'</p><div class="actions"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div>';
-document.getElementById('feed').prepend(d);
-document.getElementById('mind').value='';
-}
+let user=JSON.parse(localStorage.getItem('tap_user')||'null');
+if(user){document.getElementById('loginBox').style.display='none';updateUser(user);}
+function register(){let n=document.getElementById('rName').value.trim();let p=document.getElementById('rPhone').value.trim();let pw=document.getElementById('rPass').value.trim();if(!n||!p||!pw){document.getElementById('msg').innerText='Jaza jina, simu na password!';return;}if(p.length<10){document.getElementById('msg').innerText='Namba sio sahihi!';return;}let u={name:n,phone:p,pass:pw};localStorage.setItem('tap_user',JSON.stringify(u));document.getElementById('loginBox').style.display='none';updateUser(u);alert('Hongera '+n+'! Umesajiliwa kwa simu '+p+' 🔥 Karibu TAP!');}
+function loginOld(){let p=prompt('Ingiza namba ya simu uliyosajili nayo:');let u=JSON.parse(localStorage.getItem('tap_user')||'null');if(u&&u.phone===p){document.getElementById('loginBox').style.display='none';updateUser(u);alert('Karibu tena '+u.name+'!');}else alert('Hakuna akaunti na namba hiyo. Jisajili kwanza.');}
+function updateUser(u){document.getElementById('pName').innerText=u.name;document.getElementById('pPhone').innerText=u.phone;}
+function logout(){localStorage.removeItem('tap_user');location.reload();}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.bottom div').forEach(e=>e.classList.remove('active'));if(p==='home'){document.getElementById('page-home').classList.add('active');document.getElementById('nav-home').classList.add('active');window.scrollTo(0,0);}if(p==='reels'){document.getElementById('page-reels').classList.add('active');document.getElementById('nav-reels').classList.add('active');}if(p==='profile'){document.getElementById('page-profile').classList.add('active');document.getElementById('nav-profile').classList.add('active');}if(p==='search')document.getElementById('page-search').classList.add('active');if(p==='notif')document.getElementById('page-notif').classList.add('active');if(p==='msg')document.getElementById('page-msg').classList.add('active');window.scrollTo(0,0);}
+function postIt(){let t=document.getElementById('mind').value;if(!t){alert('Andika kitu kwanza!');return;}let u=JSON.parse(localStorage.getItem('tap_user')||'null');let name=u?u.name:'Mgeni';let d=document.createElement('div');d.className='card';d.innerHTML='<div class="head"><img src="https://picsum.photos/100"><div style="flex:1"><b>'+name+'</b><br><small>Sasa hivi • 🌍</small></div></div><p style="padding:10px">'+t+'</p><div class="actions"><span onclick="like(this)">👍 Like <b>0</b></span><span>💬 Comment</span><span>↗️ Share</span></div>';document.getElementById('feed').prepend(d);document.getElementById('mind').value='';alert('Post imetumwa! 🔥');}
+function like(el){let b=el.querySelector('b');let n=parseInt(b.innerText)+1;b.innerText=n;el.style.color='#ff6b00';}
+function commentIt(el){let box=el.parentElement.nextElementSibling;box.style.display=box.style.display==='none'?'block':'none';}
+function doSearch(){let q=document.getElementById('searchInput').value.toLowerCase();let res=document.getElementById('searchRes');if(q.includes('juma'))res.innerHTML='<p>👤 Juma Mushi - Arusha - Found! 🔥</p>';else if(q==='')res.innerHTML='<p>👤 Said KAPWILE - Dar</p><p>👤 Juma - Arusha</p><p>👤 Neema - Mwanza</p>';else res.innerHTML='<p>Tunamtafuta "'+q+'" ... Hakuna bado, mwalike ajiunge TAP!</p>';}
 </script>
 </body>
 </html>
